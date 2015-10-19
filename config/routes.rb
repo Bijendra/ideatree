@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'homes/index'
+
   resources :tags
   resources :categories
   resources :comments
@@ -6,7 +8,7 @@ Rails.application.routes.draw do
   devise_for :users
   # devise_for :users
   resources :users
-  root "assignments#index"
+  root "homes#index"
   resources :assignments
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
