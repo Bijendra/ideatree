@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
+  ActiveAdmin.routes(self)
   get 'homes/index'
 
   resources :tags
   resources :categories
-  resources :comments
   resources :comments
   devise_for :users
   # devise_for :users
