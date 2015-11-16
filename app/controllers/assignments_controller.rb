@@ -51,7 +51,21 @@ class AssignmentsController < ApplicationController
       end
     end
   end
-
+  
+  def add_comments_to_assignment_post
+    #params = {"id" => "", content => ""}
+    post = Assignment.where(id: params[:id])
+    if post.present?
+      comment = post.comments.create
+      post.content = params[:content]
+      post.user_id = current_user.id
+      post.save
+      render :json => {success: "Thanks for commenting"}
+    else
+      render :json => {errors: "Post is no longer available"}
+    end  
+  end
+     
   # DELETE /assignments/1
   # DELETE /assignments/1.json
   def destroy

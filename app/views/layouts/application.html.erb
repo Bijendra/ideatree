@@ -2,16 +2,27 @@
 <html>
 <head>
   <title>Idea Tree</title>
+  <link rel="shortcut icon" href="/assets/icon.ico" />
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
-<ul class="hmenu">
-  <%= render 'devise/menu/registration_items' %>
-  <%= render 'devise/menu/login_items' %>
-</ul>
-<%= yield %>
+<div class="container-fluid">
+  <div class="header-info" style="height: 30px;">
+	  <div class="login_account_detail">
+		  <ul class="hmenu ">
+		    <%= render 'devise/menu/registration_items' %>
+		    <%= render 'devise/menu/login_items' %>
+		  </ul>
+	  </div>
+  </div>
+  <div class="home_nav_bar">
+
+  <%#= render :partial => "shared/home_nav_bar" if current_user.present? %><br>
+  </div>
+  <%= yield %>
+</div>
 
 </body>
 </html>
