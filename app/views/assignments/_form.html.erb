@@ -1,4 +1,4 @@
-<%= form_for(@assignment) do |f| %>
+<%= simple_form_for(@assignment) do |f| %>
   <% if @assignment.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@assignment.errors.count, "error") %> prohibited this assignment from being saved:</h2>
@@ -24,7 +24,19 @@
     <%= f.label :status %>(Make Private)<br>
     <%= f.check_box :status %>
   </div>
+  <div class="field">
+    <%= f.input :avatar, as: :file %>
+  </div>
   <div class="actions">
     <%= f.submit %>
   </div>
 <% end %>
+
+
+<!-- <%= simple_form_for @assignment, defaults: { input_html: { class: 'default_class' } } do |f| %>
+  <%= f.input :description, input_html: { class: 'special' }, as: :text %>
+  <%= f.input :category_id, as: :select,  input_html: { value: 'Category'} %>
+  <%= f.input :status, as: :radio_buttons, input_html: { value: 'Make Private'} %>
+  <%= f.input :avatar, as: :file %>
+  <%= f.button :submit %>
+<% end %> -->

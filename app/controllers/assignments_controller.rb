@@ -26,7 +26,8 @@ class AssignmentsController < ApplicationController
   def create
     @assignment = Assignment.new(assignment_params)
     @assignment.user_id = current_user.id
-
+    Rails.logger.info "S"*100
+    Rails.logger.info @assignments
     respond_to do |format|
       if @assignment.save
         format.html { redirect_to @assignment, notice: 'Assignment was successfully created.' }
@@ -84,6 +85,6 @@ class AssignmentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def assignment_params
-      params.require(:assignment).permit(:description, :user_id, :category_id, :status)
+      params.require(:assignment).permit(:description, :user_id, :category_id, :status, :avatar)
     end
 end

@@ -18,8 +18,13 @@
 	  </div>
   </div>
   <div class="home_nav_bar">
-
-  <%#= render :partial => "shared/home_nav_bar" if current_user.present? %><br>
+    <% if current_user.present? %>
+      <h1>Shape you idea with us</h1>
+      <div class="container">
+        <%= render :partial => "shared/home_nav_bar" %><br>
+      </div>
+      <br>
+    <% end %>
   </div>
   <%= yield %>
 </div>
