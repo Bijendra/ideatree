@@ -139,6 +139,8 @@ GEM
       cocaine (~> 0.5.5)
       mime-types
       mimemagic (= 0.3.0)
+    paranoia (2.1.4)
+      activerecord (~> 4.0)
     polyamorous (1.2.0)
       activerecord (>= 3.0)
     rack (1.6.4)
@@ -233,6 +235,7 @@ DEPENDENCIES
   jquery-rails
   mysql2 (~> 0.3.18)
   paperclip (~> 4.3)
+  paranoia (~> 2.0)
   rails (= 4.2.4)
   rename
   sass-rails (~> 5.0)

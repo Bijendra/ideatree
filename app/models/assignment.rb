@@ -8,4 +8,5 @@ class Assignment < ActiveRecord::Base
     validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/ 
 
 	acts_as_commentable
+        acts_as_paranoid
 end
