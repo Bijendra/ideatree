@@ -1,9 +1,13 @@
 
 <div class="row">
 
-	<a href="/" class="btn btn-primary btn-lg active" role="button">Browse</a>
+	<a href="/assignments" class="btn btn-primary btn-lg active" role="button">Browse</a>
 	<a href="/assignments/new" class="btn btn-primary btn-lg active" role="button">Submit</a>
-	<a href="/users" class="btn btn-primary btn-lg active" role="button">Contributions</a>
+	<% if user_signed_in? %>
+		<a href="/users/<%= current_user.id %>" class="btn btn-primary btn-lg active" role="button">Contributions</a>
+	<% else %>
+		<a href="/assignments" class="btn btn-primary btn-lg active" role="button">Contributions</a>
+	<% end %>
 </div>
 
 
