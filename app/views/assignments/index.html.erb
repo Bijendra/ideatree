@@ -5,6 +5,7 @@
 <table>
   <thead>
     <tr>
+      <th></th>
       <th>Description</th>
       <th>Category</th>
       <th>Status</th>
@@ -15,16 +16,24 @@
   <tbody>
     <% @assignments.each do |assignment| %>
       <tr>
+        <td><%= image_tag assignment.avatar.url(:thumb), :size => "30x30" %></td>
         <td><%= assignment.description %></td>
         <td><%= assignment.category_id %></td>
         <td><%= assignment.status %></td>
         <td><%= link_to 'Show', assignment %></td>
-        <td><%= link_to 'Edit', edit_assignment_path(assignment) %></td>
-        <td><%= link_to 'Destroy', assignment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% if user_signed_in? && current_user.id == assignment.user_id %>
+          <td><%= link_to 'Edit', edit_assignment_path(assignment) %></td>
+          <td><%= link_to 'Destroy', assignment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
 </table>
+
+<p>
+  <strong>Have an Idea? </strong>
+  <a href="/assignments/new" class="btn btn-primary btn-lg active" role="button">YES</a>
+</p>
 
 <br>
 
