@@ -1,4 +1,6 @@
-<%= form_for(@comment) do |f| %>
+<% p @comment %>
+<% p "*"*100 %>
+<%= form_for @comment do |f| %>
   <% if @comment.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@comment.errors.count, "error") %> prohibited this comment from being saved:</h2>
@@ -14,8 +16,12 @@
   <div class="field">
     <%= f.label :content %><br>
     <%= f.text_field :content %>
+    <%#= hidden_field_tag 'assignment_id', assignment.id  %> 
   </div>
   <div class="actions">
     <%= f.submit %>
+           <%# @comment.user_id = current.used_id %>
+
+    
   </div>
 <% end %>

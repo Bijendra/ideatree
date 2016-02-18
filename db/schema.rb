@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151019174638) do
+ActiveRecord::Schema.define(version: 20160210052657) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace",     limit: 255
@@ -29,13 +29,20 @@ ActiveRecord::Schema.define(version: 20151019174638) do
   add_index "active_admin_comments", ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id", using: :btree
 
   create_table "assignments", force: :cascade do |t|
-    t.string   "description", limit: 255
-    t.integer  "user_id",     limit: 4
-    t.string   "category_id", limit: 255
-    t.boolean  "status",                  default: false
-    t.datetime "created_at",                              null: false
-    t.datetime "updated_at",                              null: false
+    t.string   "description",         limit: 255
+    t.integer  "user_id",             limit: 4
+    t.string   "category_id",         limit: 255
+    t.boolean  "status",                          default: false
+    t.datetime "created_at",                                      null: false
+    t.datetime "updated_at",                                      null: false
+    t.string   "avatar_file_name",    limit: 255
+    t.string   "avatar_content_type", limit: 255
+    t.integer  "avatar_file_size",    limit: 4
+    t.datetime "avatar_updated_at"
+    t.datetime "deleted_at"
   end
+
+  add_index "assignments", ["deleted_at"], name: "index_assignments_on_deleted_at", using: :btree
 
   create_table "categories", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -43,9 +50,13 @@ ActiveRecord::Schema.define(version: 20151019174638) do
   end
 
   create_table "comments", force: :cascade do |t|
-    t.string   "content",    limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.string   "content",          limit: 255
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.string   "commentable_id",   limit: 255
+    t.string   "commentable_type", limit: 255
+    t.string   "user_id",          limit: 255
+    t.integer  "assignment_id",    limit: 4
   end
 
   create_table "likes", force: :cascade do |t|
@@ -75,28 +86,16 @@ ActiveRecord::Schema.define(version: 20151019174638) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip",     limit: 255
     t.string   "last_sign_in_ip",        limit: 255
+    t.string   "avatar_file_name",       limit: 255
+    t.string   "avatar_content_type",    limit: 255
+    t.integer  "avatar_file_size",       limit: 4
+    t.datetime "avatar_updated_at"
+    t.datetime "deleted_at"
   end
 
+  add_index "users", ["deleted_at"], name: "index_users_on_deleted_at", using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
-
-  create_table "views", force: :cascade do |t|
-    t.string   "email",                  limit: 255, default: "", null: false
-    t.string   "encrypted_password",     limit: 255, default: "", null: false
-    t.string   "reset_password_token",   limit: 255
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          limit: 4,   default: 0,  null: false
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip",     limit: 255
-    t.string   "last_sign_in_ip",        limit: 255
-    t.datetime "created_at",                                      null: false
-    t.datetime "updated_at",                                      null: false
-  end
-
-  add_index "views", ["email"], name: "index_views_on_email", unique: true, using: :btree
-  add_index "views", ["reset_password_token"], name: "index_views_on_reset_password_token", unique: true, using: :btree
 
   create_table "visibilities", force: :cascade do |t|
     t.string   "assignment_id", limit: 255
