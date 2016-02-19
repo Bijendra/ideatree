@@ -3,8 +3,14 @@ class CommentsController < ApplicationController
 
   # GET /comments
   # GET /comments.json
+  before_action :find_assignment_and_comment, :only => [:create, :create_comment_ajax]
   def index
+    p params
+    p "S"*100
     @comments = Comment.all
+    @ass = Assignment.all
+    @assignment = Assignment.find(params[:format])
+    @comment = Comment.new
   end
 
   # GET /comments/1
@@ -15,6 +21,9 @@ class CommentsController < ApplicationController
   # GET /comments/new
   def new
     @comment = Comment.new
+    @comment.assignment_id = params[:format]
+    p "#"*100
+    p params
   end
 
   # GET /comments/1/edit
@@ -24,19 +33,38 @@ class CommentsController < ApplicationController
   # POST /comments
   # POST /comments.json
   def create
-    @comment = Comment.new(comment_params)
-
-    respond_to do |format|
+    # params = {content: "gfgf", assignment_id: 123}
+    #redirect_to @comment, notice: 'Comment was successfully created.'
+  end
+  
+  def create_comment_ajax
+    # @comment
+    # handle ajax call
+      respond_to do |format|
       if @comment.save
-        format.html { redirect_to @comment, notice: 'Comment was successfully created.' }
-        format.json { render :show, status: :created, location: @comment }
+        format.html { redirect_to @assignment, notice: 'comment was successfully created.' }
+        format.json { render action: 'show', status: :created, location: @comment }
+        # added:
+        format.js   { render action: 'show', status: :created, location: @comment }
       else
-        format.html { render :new }
+        format.html { render action: 'new' }
         format.json { render json: @comment.errors, status: :unprocessable_entity }
+        # added:
+        format.js   { render json: @comment.errors, status: :unprocessable_entity }
       end
     end
-  end
+  end  
 
+  def find_assignment_and_comment
+    assignment_obj = Assignment.find(params[:assignment_id])
+    @comment = Comment.new(comment_params)
+    @comment.user_id = current_user.id
+    @comment.assignment_id = assignment_obj.id
+    @comment.save
+    #render "create_comment_ajax"
+    p "d"*100
+
+  end  
   # PATCH/PUT /comments/1
   # PATCH/PUT /comments/1.json
   def update
@@ -64,7 +92,7 @@ class CommentsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_comment
-      @comment = Comment.find(params[:id])
+     # @comment = Comment.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

@@ -6,11 +6,29 @@ Rails.application.routes.draw do
   resources :categories
   resources :comments
   devise_for :users
-  # devise_for :users
   resources :users
   root "homes#index"
   resources :assignments
   get "/ideas" => "assignments#index"
+  post "/create_comment_ajax" => "comments#create_comment_ajax"
+  get "/comments" => "comments#index"
+
+#   devise_scope :user do
+#   authenticated :user do
+#     root 'home#index', as: :authenticated_root
+#   end
+
+#   unauthenticated do
+#     root 'devise/sessions#new', as: :unauthenticated_root
+#   end
+# end
+
+
+
+  #   devise_scope :user do
+  #   get "user/login" => "devise/sessions#new"
+  # end
+ 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

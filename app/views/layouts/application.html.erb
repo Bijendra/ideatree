@@ -8,9 +8,15 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-<div class="container-fluid">
-  <div class="header-info" style="height: 30px;">
-	  <div class="login_account_detail">
+<div class="container-fluid" >
+  <div class="header-info" style="margin-top:20px;height:30px;position: relative;
+    z-index: 1;
+    font-size: 17px;
+    background-color: #e6e6e6;
+    color: #f1f1f1;
+    width: 100%;
+    letter-spacing: 1px;">
+	  <div class="login_account_detail" style="font-color:black">
 		  <ul class="hmenu ">
       	  <% if user_signed_in? %>
             <% if current_user.avatar? %>
@@ -26,7 +32,7 @@
   </div>
   <div class="home_nav_bar">
     <% if current_user.present? %>
-      <h1>Shape you idea with us</h1>
+      <h1>Shape your idea with us</h1>
       <div class="container">
         <%= render :partial => "shared/home_nav_bar" %><br>
       </div>
