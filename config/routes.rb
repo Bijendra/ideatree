@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   resources :comments
   devise_for :users
   resources :users
-  root "homes#index"
+  root "assignments#index"
   resources :assignments
   get "/ideas" => "assignments#index"
   post "/create_comment_ajax" => "comments#create_comment_ajax"
