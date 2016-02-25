@@ -13,6 +13,14 @@ Rails.application.routes.draw do
   post "/create_comment_ajax" => "comments#create_comment_ajax"
   get "/comments" => "comments#index"
 
+
+  resources :assignments do
+    member do
+        put "like", to: "assignments#like"
+        put "unlike", to: "assignments#unlike"
+    end
+end
+
 #   devise_scope :user do
 #   authenticated :user do
 #     root 'home#index', as: :authenticated_root

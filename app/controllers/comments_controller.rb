@@ -18,6 +18,7 @@ class CommentsController < ApplicationController
   def show
   end
 
+#s = 5
   # GET /comments/new
   def new
     @comment = Comment.new
@@ -42,15 +43,15 @@ class CommentsController < ApplicationController
     # handle ajax call
       respond_to do |format|
       if @comment.save
-        format.html { redirect_to @assignment, notice: 'comment was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @comment }
+        # format.html { redirect_to @assignment, notice: 'comment was successfully created.' }
+        format.js { render action: 'show', status: :created, location: @comment }
         # added:
-        format.js   { render action: 'show', status: :created, location: @comment }
+        # format.js   { render action: 'show', status: :created, location: @comment }
       else
-        format.html { render action: 'new' }
-        format.json { render json: @comment.errors, status: :unprocessable_entity }
+        # format.html { render action: 'new' }
+        format.js { render json: @comment.errors, status: :unprocessable_entity }
         # added:
-        format.js   { render json: @comment.errors, status: :unprocessable_entity }
+        # format.js   { render json: @comment.errors, status: :unprocessable_entity }
       end
     end
   end  
@@ -82,9 +83,10 @@ class CommentsController < ApplicationController
   # DELETE /comments/1
   # DELETE /comments/1.json
   def destroy
-    @comment.destroy
+    comment = Comment.find(params[:id])
+    comment.destroy
     respond_to do |format|
-      format.html { redirect_to comments_url, notice: 'Comment was successfully destroyed.' }
+      format.html { redirect_to comment_url, notice: 'Comment was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

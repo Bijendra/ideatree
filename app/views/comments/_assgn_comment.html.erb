@@ -1,51 +1,34 @@
-
-<% p "$"*200 %>
- 
-<div style="display:table;">
-    <table style="margin:5px;" class='table' id='comment_table'>
-	  <thead>
-	    <tr>
-	      <th>Comments</th>
-	    </tr>
-	  </thead>
-	  <%= link_to 'More Comments', comments_path(assignment),:locals => {:comments => @comments[assignment], :com => @com, :assignment => assignment} %>
-	  <tbody id="comment-modal">
-	  	    <% comments.last(2).each do |comment| %>
-		<tr><td><%= comment.content %></td></tr>	
-		<% end -%>	
-		</tbody>	
-		</table>	
-		</div>	
-
-
+  <% if comm != nil %>
+  <% if comm.count > 2 %>
+<%= link_to 'More Comments', comments_path(assignid) %>
+ <% end%>
 
 <div style="display:table;">
     <table style="margin:5px;" class='table' id='comment_table'>
-	  <thead>
-	    <tr>
-	      <th>Content</th>
-	    </tr>
-	  </thead>
+      <thead>
+        <tr>
+          <th>Comments</th>
+        </tr>
+      </thead>
 	  <tbody id="comment-modal">
-	    <% comments.each do |comment| %>
+<%# raise comm.inspect %>
+	    <% comm.last(2).each do |comment| %>
+	    	    		   
+	    	      <%#= raise v.last.content.inspect %>
+
+
+	      <%#= raise comm.inspect %>
+	      <tr>
+	         <%= render partial:'comments/table_row', locals: {comment: comment, assignment_id: assignid}%>
+
 	      
-	         <%= render partial: 'comments/table_row', locals: {comment: comment, assignment_id: assignid} %>
-
-	        <%#= "comment assignment id : #{@assignment.id}" %>
-	        <!--<td><%= comment.content %></td>
-	        <%# if current_user.id.to_s == comment.user_id.to_s %>
-	        <td><%#= link_to 'Like', edit_comment_path(comment) %></td>
-
-	        <td><%#= link_to 'Edit', edit_comment_path(comment) %></td>
-	        <td><%#= link_to 'Destroy', comment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-	        <%# end %> -->
-	       
+	        </tr>
 	    <% end %>
 	  </tbody>
 	</table>
-</div>
+<% end %>
 
-<%= form_for(com, remote: true, url: create_comment_ajax_url) do |f| %>
+<%= form_for(@com, remote: true, url: create_comment_ajax_url) do |f| %>
 
 	<div class="field" >
 	  	<%= f.label :comment_here %>:
@@ -54,9 +37,8 @@
   	</div>
   	<div class="actions">
 		<%= submit_tag onSubmit="submitComment();"%>
-		    <%#= hidden_field_tag 'assignment_id', assign %> 
+		    <%= hidden_field_tag 'assignment_id', assignid %> 
 		   <script type="text/javascript">
-		   		$('#com').val('');
 		   </script>
 	</div>
 <% end %>

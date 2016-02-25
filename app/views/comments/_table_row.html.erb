@@ -4,5 +4,11 @@
 <div style="background:#f1f1f1;width:600px; border-style: outset; box-shadow: 0 2px 4px 0 rgba(0,0,0,0),0 2px 10px 0 rgba(0,0,0,0.18) !important;" > 	
 <%= comment.content %> 
 </div>
- </td>
-</tr>	
+</td>
+</tr>
+ <!--  <#% if current_user.id.to_s == comment.user_id.to_s %>
+	         <td><%#= link_to 'Like', like_path(comment) %></td> 
+	        <td><%#= link_to 'Edit', edit_comment_path(comment) %></td>
+	        <td><%#= link_to 'Destroy', comment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+	        <%#end%>
+</tr>	 -->

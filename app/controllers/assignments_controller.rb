@@ -70,6 +70,34 @@ class AssignmentsController < ApplicationController
     end  
   end
      
+  def like
+  assign = Assignment.find(params[:id])
+  if assign.present?
+    like_obj = Like.new
+    like_obj.user_id = current_user.id
+    like_obj.assignment_id = assign.id
+    like_obj.save
+  end  
+  if request.xhr?
+    head :ok
+    render json: { count: @content.get_likes.size, id: params[:id] }
+
+  else
+    redirect_to assign
+  end
+end
+
+  def unlike
+    assign = Assignment.find(params[:id])
+    like_obj = Like.where(assignment_id: assign.id, user_id: current_user.id)
+    like_obj.destroy if like_obj.present?
+    if request.xhr?
+      head :ok
+
+    end
+  end
+
+
   # DELETE /assignments/1
   # DELETE /assignments/1.json
   def destroy
