@@ -11,13 +11,11 @@
 		<ul>
 			<li class="search">
 				<a class="fa-search" href="#search">Search</a>
-				<form id="search" method="get" action="#">
+				<form id="search" method="get" action="/search">
 					<input type="text" name="query" placeholder="Search" />
 				</form>
 			</li>
-			<li class="menu">
-				<a class="fa-bars" href="#menu">Menu</a>
-			</li>
+			
 			<li class="user_detail">
 				<%#= render :partial => "layouts/nav_user_detail" %>
               <%= image_tag current_user.avatar.url(:thumb), :size => "50x50" %>

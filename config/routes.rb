@@ -2,6 +2,13 @@
 Rails.application.routes.draw do
   ActiveAdmin.routes(self)
   get 'homes/index'
+  
+  resources :assignments do
+    member do
+        put "like", to: "assignments#like"
+        put "unlike", to: "assignments#unlike"
+    end
+  end
 
   resources :tags
   resources :categories
@@ -13,16 +20,11 @@ Rails.application.routes.draw do
   get "/ideas" => "assignments#index"
   post "/create_comment_ajax" => "comments#create_comment_ajax"
   get "/comments" => "comments#index"
-
+  get "/search" => "assignments#search"
 
   # match ':controller(/:action(/:id))(.:format)'
 
-  resources :assignments do
-    member do
-        put "like", to: "assignments#like"
-        put "unlike", to: "assignments#unlike"
-    end
-end
+  
 
 #   devise_scope :user do
 #   authenticated :user do

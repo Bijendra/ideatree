@@ -8,6 +8,8 @@ class AssignmentsController < ApplicationController
     @comments = Comment.all.group_by(&:assignment_id)
     @twocom = Comment.last(2)
     @com = Comment.new #hash 
+    @popular_view = @assignments[0..3] || []
+    @popular_list = @assignments[4..8] || []
     render "idea_temp"
   end
 
@@ -98,7 +100,14 @@ end
     end
   end
 
-
+  def search
+    #put the search criteria here and try to reuse or combine the index method
+    @assignments = Assignment.all
+    @comments = Comment.all.group_by(&:assignment_id)
+    @twocom = Comment.last(2)
+    @com = Comment.new #hash 
+    render "idea_temp"
+  end  
   # DELETE /assignments/1
   # DELETE /assignments/1.json
   def destroy
