@@ -1,11 +1,12 @@
 <p id="notice"><%= notice %></p>
 <h1 style="margin-left:20%">Listing Ideas</h1>
 <%#= render :partial => "shared/home_nav_bar" %>
-<div style="margin-left:20%;width:800px; border-style: outset; box-shadow: 0 2px 4px 0 rgba(0,0,0,0.50),0 2px 10px 0 rgba(0,0,0,0.18) !important;" >
+<div style="margin-left:20%;width:900px; border-style: outset; box-shadow: 0 2px 4px 0 rgba(0,0,0,0.50),0 2px 10px 0 rgba(0,0,0,0.18) !important;" >
         
-    <div style="margin-left:10%;margin-top:50px; width:650px,display:table;">
+    <div style="margin-left:10%;margin-top:50px; width:650px,display:table,margin-right:10%;">
 
         <table border="2" >
+    
 
             <% @assignments.each do |assignment| %>
                 <tr>
@@ -40,20 +41,34 @@
 
                 <tr>Category = <%= assignment.category_id %></tr>
                 <br>
+                <tr><%#= link_to 'Like', like_path(assignment) %>
+                    <% if user_signed_in? %>
+                    <%# if current_user.id.liked? @assignment %>
+                    <%= link_to "Like", like_assignment_path(assignment), class: 'vote', method: :put, remote: true , data: { toggle_text: 'Unlike', toggle_href: unlike_assignment_path(assignment)}%>
+                    <% else %>
+                    <%= link_to "Unlike", unlike_assignment_path(assignment), class: 'vote', method: :put , remote: true  %>
+                    <span class="votes-count" data-id="<%= assignment.id %>">
+                    <%= assignment.get_likes.size %>
+                    </span>
+                users like this
+                <% end %>
 
+                </tr>
+                <br>
                 <tr>
                 
-                <% if @comments[assignment.id] != nil %>
-                    <%= render :partial => "comments/assgn_comment",:locals => {:comments => @comments[assignment.id], :com => @com, :assignid => assignment.id} %>
 
-                <% end %>
+    
+                     <%= render partial: 'comments/assgn_comment', locals: {comm: @comments[assignment.id] ,assignid: assignment.id, com: @com} %>
+
+      
+
                 
                 </tr>
                 
 
                 <% if user_signed_in? && current_user.id == assignment.user_id %>
                 <tr>
-                    <%#= link_to 'Edit ', edit_assignment_path(assignment) %>
                 </tr>
                 
                 <br>
