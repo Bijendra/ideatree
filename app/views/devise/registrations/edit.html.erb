@@ -1,27 +1,69 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+
 
 <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
   <%= f.error_notification %>
+  <center>
+    <div id="message_u"></div>  
+    <div class="form-inputs edit_profile_info" style="width:50%;">
+      <center><h2 style="margin:0px;">Edit Your Profile</h2></center>
+      <table style="" class="edit_profile_table"> 
+        <tr>
+          <td class="p-5">
+            <%= f.input :email, required: true, autofocus: true %>
+          </td>
+        </tr>    
+        
+        <tr>
+          <td class="p-5">
+            <%= f.input :password, autocomplete: "off", hint: "leave it blank if you don't want to change it", required: false %>
+          </td>        
+        </tr>
 
-  <div class="form-inputs">
-    <%= f.input :email, required: true, autofocus: true %>
+        <tr>
+          <td class="p-5">
+            <%= f.input :password_confirmation, required: false %>
+          </td>        
+        </tr>
 
-    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-      <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
-    <% end %>
+        <tr>
+          <td class="p-5">
+            <%= f.input :current_password, hint: "we need your current password to confirm your changes", required: true %>
+          </td>        
+        </tr>        
+      
+        <tr>
+          <td class="p-5">
+            <%= f.text_field :first_name , :placeholder => "First Name", :value => current_user.first_name %>
+          </td>        
+        </tr>  
 
-    <%= f.input :password, autocomplete: "off", hint: "leave it blank if you don't want to change it", required: false %>
-    <%= f.input :password_confirmation, required: false %>
-    <%= f.input :current_password, hint: "we need your current password to confirm your changes", required: true %>
-  </div>
+        <tr>
+          <td class="p-5">
+            <%= f.text_field :middle_name , :placeholder => "Middle Name", :value => (current_user.middle_name.present?) ? current_user.middle_name : "" %>
+          </td>
+        </tr>
 
-  <div class="form-actions">
-    <%= f.button :submit, "Update" %>
-  </div>
+        <tr>
+          <td class="p-5">
+            <%= f.text_field :last_name, :placeholder => "Last Name", :value => (current_user.last_name.present?) ? current_user.last_name : "" %>
+          </td>        
+        </tr>
+
+        <tr>
+          <td class="p-5" style="">
+            <div class="edit_profile_select">
+                <%= collection_select(:user, :country, Country.all.to_a.sort, :id, :name, {:selected => current_user.country ? current_user.country : Country.first.id })  %>
+            </div>
+          </td>
+        </tr>
+    </div>
+    
+    <div class="form-actions">
+      <%= f.button :submit, "Update" %>
+    </div>
+  </center>
 <% end %>
 
-<h3>Cancel my account</h3>
 
-<p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
 
 <%= link_to "Back", :back %>
