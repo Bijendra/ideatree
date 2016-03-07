@@ -8,7 +8,7 @@ class AssignmentsController < ApplicationController
     @comments = Comment.all.group_by(&:assignment_id)
     @twocom = Comment.last(2)
     @com = Comment.new #hash 
-    render "idea_temp", layout: false
+    render "idea_temp"
   end
 
   # GET /assignments/1

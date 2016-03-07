@@ -1,47 +1,32 @@
   <!DOCTYPE html>
 <html>
 <head>
-  <%= render(:partial => "layouts/font_style") %>
   <title>Idea Tree</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="assets/css/main.css" />
   <link rel="shortcut icon" href="/assets/icon.ico" />
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%#= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
 <div class="container-fluid" >
-  <div class="header-info" style="margin-top:20px;height:30px;position: relative;
-    z-index: 1;
-    font-size: 17px;
-    background-color: #e6e6e6;
-    color: #f1f1f1;
-    width: 100%;
-    letter-spacing: 1px;">
-	  <div class="login_account_detail" style="font-color:black">
-		  <ul class="hmenu ">
-      	  <% if user_signed_in? %>
-            <% if current_user.avatar? %>
-              <%= image_tag current_user.avatar.url(:thumb), :size => "50x50" %>
-            <% end %>
-          <a href="/users/<%= current_user.id %>" class="btn btn-primary btn-lg active" role="button">
-        	Logged in as <strong><%=current_user.email%></strong></a>
-      	  <% end %>
-		    <%= render 'devise/menu/registration_items' %>
-		    <%= render 'devise/menu/login_items' %>
-		  </ul>
-	  </div>
-  </div>
-  <div class="home_nav_bar">
-    <% if current_user.present? %>
-      <h1>Shape your idea with us</h1>
-      <div class="container">
-        <%= render :partial => "shared/home_nav_bar" %><br>
-      </div>
-      <br>
+ 
+  <div id="wrapper">
+    <% if user_signed_in? %>
+      <%= render :partial => "layouts/nav_header" %>
+    <% else %>
+      <%= render :partial => "non_login_nav" %>
     <% end %>
-  </div>
   <%= yield %>
+  </div>
 </div>
 
 </body>
 </html>
+
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/skel.min.js"></script>
+<script src="assets/js/util.js"></script>
+<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+<script src="assets/js/main.js"></script>

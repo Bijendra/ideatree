@@ -10,4 +10,10 @@ class User < ActiveRecord::Base
   has_many :assignments      
   has_many :comments
   acts_as_paranoid
+
+  def get_display_name
+    name = self.first_name 
+    name = self.last_name if name.blank?
+    name = self.email.gsub("a").first if name.blank?
+  end 	
 end
