@@ -4,7 +4,7 @@ class AssignmentsController < ApplicationController
   # GET /assignments
   # GET /assignments.json
   def index
-    @assignments = Assignment.all
+    @assignments = Assignment.all.sort_by(&:created_at) #change it to sort by published date. Show most recent on top
     @comments = Comment.all.group_by(&:assignment_id)
     @twocom = Comment.last(2)
     @com = Comment.new #hash 

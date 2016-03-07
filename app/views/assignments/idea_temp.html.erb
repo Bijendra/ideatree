@@ -1,24 +1,22 @@
-
-				<!-- Main -->
 					<div id="main">
-
-						<!-- Post -->
+					    <% @assignments.each do |post| %>
 							<article class="post">
 								<header>
 									<div class="title">
-										<h2><a href="#">Magna sed adipiscing</a></h2>
-										<p>Lorem ipsum dolor amet nullam consequat etiam feugiat</p>
+										<h2><a href="#"><%= post.title %></a></h2>
+										<p><%= post.quote %></p>
 									</div>
 									<div class="meta">
-										<time class="published" datetime="2015-11-01">November 1, 2015</time>
-										<a href="#" class="author"><span class="name">Jane Doe</span><img src="/assets/avatar.jpg" alt="" /></a>
+										<time class="published" datetime="<%= post.created_at.strftime("%d-%m-%Y")%>"><%= post.created_at.strftime("%B %d, %Y") %></time>
+										<a href="#" class="author"><span class="name"><%= post.user.get_display_name %></span><img src="<%= post.user.avatar.url(:thumb) %>" alt="" /></a>
 									</div>
 								</header>
-								<a href="#" class="image featured"><img src="/assets/pic01.jpg" alt="" /></a>
-								<p>Mauris neque quam, fermentum ut nisl vitae, convallis maximus nisl. Sed mattis nunc id lorem euismod placerat. Vivamus porttitor magna enim, ac accumsan tortor cursus at. Phasellus sed ultricies mi non congue ullam corper. Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla.</p>
+								<a href="#" class="image featured"><img src="<%= post.avatar.url(:medium) %>" alt="" /></a>
+
+								<p><%= post.description[0..150] %></p>
 								<footer>
 									<ul class="actions">
-										<li><a href="#" class="button big">Continue Reading</a></li>
+										<li><a href="/assignments/<%=post.id%>" class="button big">Continue Reading</a></li>
 									</ul>
 									<ul class="stats">
 										<li><a href="#">General</a></li>
@@ -27,60 +25,8 @@
 									</ul>
 								</footer>
 							</article>
+					    <% end %>		
 
-						<!-- Post -->
-							<article class="post">
-								<header>
-									<div class="title">
-										<h2><a href="#">Ultricies sed magna euismod enim vitae gravida</a></h2>
-										<p>Lorem ipsum dolor amet nullam consequat etiam feugiat</p>
-									</div>
-									<div class="meta">
-										<time class="published" datetime="2015-10-25">October 25, 2015</time>
-										<a href="#" class="author"><span class="name">Jane Doe</span><img src="/assets/avatar.jpg" alt="" /></a>
-									</div>
-								</header>
-								<a href="#" class="image featured"><img src="/assets/pic02.jpg" alt="" /></a>
-								<p>Mauris neque quam, fermentum ut nisl vitae, convallis maximus nisl. Sed mattis nunc id lorem euismod placerat. Vivamus porttitor magna enim, ac accumsan tortor cursus at. Phasellus sed ultricies mi non congue ullam corper.</p>
-								<footer>
-									<ul class="actions">
-										<li><a href="#" class="button big">Continue Reading</a></li>
-									</ul>
-									<ul class="stats">
-										<li><a href="#">General</a></li>
-										<li><a href="#" class="icon fa-heart">28</a></li>
-										<li><a href="#" class="icon fa-comment">128</a></li>
-									</ul>
-								</footer>
-							</article>
-
-						<!-- Post -->
-							<article class="post">
-								<header>
-									<div class="title">
-										<h2><a href="#">Euismod et accumsan</a></h2>
-										<p>Lorem ipsum dolor amet nullam consequat etiam feugiat</p>
-									</div>
-									<div class="meta">
-										<time class="published" datetime="2015-10-22">October 22, 2015</time>
-										<a href="#" class="author"><span class="name">Jane Doe</span><img src="/assets/avatar.jpg" alt="" /></a>
-									</div>
-								</header>
-								<a href="#" class="image featured"><img src="/assets/pic03.jpg" alt="" /></a>
-								<p>Mauris neque quam, fermentum ut nisl vitae, convallis maximus nisl. Sed mattis nunc id lorem euismod placerat. Vivamus porttitor magna enim, ac accumsan tortor cursus at. Phasellus sed ultricies mi non congue ullam corper. Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla. Cras vehicula tellus eu ligula viverra, ac fringilla turpis suscipit. Quisque vestibulum rhoncus ligula.</p>
-								<footer>
-									<ul class="actions">
-										<li><a href="#" class="button big">Continue Reading</a></li>
-									</ul>
-									<ul class="stats">
-										<li><a href="#">General</a></li>
-										<li><a href="#" class="icon fa-heart">28</a></li>
-										<li><a href="#" class="icon fa-comment">128</a></li>
-									</ul>
-								</footer>
-							</article>
-
-						
 						<!-- Pagination -->
 							<ul class="actions pagination">
 								<li><a href="" class="disabled button big previous">Previous Page</a></li>
@@ -116,7 +62,7 @@
 												<header>
 													<h3><a href="#"><%= post.title %></a></h3>
 													<!-- Update created_at with published at -->
-													<time class="published" datetime="2015-10-20"><%= post.created_at.strftime("%B %d, %Y") %></time>
+													<time class="published" datetime="<%= post.created_at.strftime("%d-%m-%Y")%>"><%= post.created_at.strftime("%B %d, %Y") %></time>
 													<a href="#" class="author"><img src="<%= post.avatar.url(:medium) %>" alt="" /></a>
 												</header>
 												<a href="#" class="image"><img src="<%= post.avatar.url(:thumb) %>" alt="" /></a>

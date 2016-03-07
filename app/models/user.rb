@@ -11,6 +11,8 @@ class User < ActiveRecord::Base
   has_many :comments
   acts_as_paranoid
 
+  attr_accessor :get_display_name
+
   def get_display_name
     name = self.first_name 
     name = self.last_name if name.blank?
