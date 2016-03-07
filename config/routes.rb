@@ -93,5 +93,5 @@ end
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
->>>>>>> 60e8db7b61f45e4eb7e41cebca396111fa5d3051
+
 end
