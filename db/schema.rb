@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160307140318) do
+ActiveRecord::Schema.define(version: 20160307185432) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace",     limit: 255
@@ -40,6 +40,9 @@ ActiveRecord::Schema.define(version: 20160307140318) do
     t.integer  "avatar_file_size",    limit: 4
     t.datetime "avatar_updated_at"
     t.datetime "deleted_at"
+    t.string   "title",               limit: 255
+    t.datetime "published_at"
+    t.string   "quote",               limit: 255
   end
 
   add_index "assignments", ["deleted_at"], name: "index_assignments_on_deleted_at", using: :btree
@@ -70,13 +73,6 @@ ActiveRecord::Schema.define(version: 20160307140318) do
   create_table "tags", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "unlikes", force: :cascade do |t|
-    t.string   "assignment_id", limit: 255
-    t.string   "user_id",       limit: 255
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
   end
 
   create_table "users", force: :cascade do |t|
