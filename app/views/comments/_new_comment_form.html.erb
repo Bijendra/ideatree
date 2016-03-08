@@ -1,0 +1,15 @@
+<%= form_for(@com, remote: true, url: create_comment_ajax_url) do |f| %>
+
+	<div class="field" >
+	  	<%= f.label :comment_here %>:
+  		<%= f.text_field :content, :id => "com" %><br />
+
+  	</div>
+  	<div class="actions">
+		<%= submit_tag  onSubmit="Submit" %>
+		    <%= hidden_field_tag 'assignment_id', assignid %> 
+		   <script type="text/javascript">
+		   </script>
+	</div>
+<% end %>
+

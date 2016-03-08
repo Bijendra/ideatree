@@ -6,6 +6,11 @@ class AssignmentsController < ApplicationController
   def index
     @assignments = Assignment.all
     @comments = Comment.all.group_by(&:assignment_id)
+    @user = User.all
+    @like_obj = Like.all
+    @like_count = Like.where(status: true).group(:assignment_id).count
+    p @like_obj
+    @unlike_count = Like.where(status: false).group(:assignment_id).count
     @twocom = Comment.last(2)
     @com = Comment.new #hash 
   end
@@ -72,31 +77,38 @@ class AssignmentsController < ApplicationController
      
   def like
   assign = Assignment.find(params[:id])
-  if assign.present?
-    like_obj = Like.new
-    like_obj.user_id = current_user.id
-    like_obj.assignment_id = assign.id
-    like_obj.save
-  end  
-  if request.xhr?
-    head :ok
-    render json: { count: @content.get_likes.size, id: params[:id] }
+    if assign.present?
+      @assign_id = assign.id
+      like_obj = Like.where(assignment_id: assign.id, user_id: current_user.id).first
+      if like_obj.blank?
+        like_obj = Like.new
+        like_obj.user_id = current_user.id
+        like_obj.assignment_id = assign.id
+      end
+     
+      if like_obj.status.to_s == params[:status]
+        like_obj.status = nil
+        @sta = 0
+      else
+        like_obj.status = params[:status]
+        @sta = like_obj.status
+      end 
 
-  else
-    redirect_to assign
+
+      if like_obj.save 
+          @likecount = Like.where(assignment_id: assign.id, status: true).count
+          @unlikecount =  Like.where(assignment_id: assign.id, status: false).count
+          # @sta = like_obj.status
+p like_obj.status.class
+p nil.class
+p @sta.class
+        # render json: { likes: assign.count_likes, id: params[:id], unlikes: assign.count_unlikes }=
+        # format.js { render action: 'like', status: :created, location: @comment , locals: {assignment_id: assignment_obj}}
+      else
+        render json: {errors: like_obj.errors.full_messages}  
+      end  
+    end  
   end
-end
-
-  def unlike
-    assign = Assignment.find(params[:id])
-    like_obj = Like.where(assignment_id: assign.id, user_id: current_user.id)
-    like_obj.destroy if like_obj.present?
-    if request.xhr?
-      head :ok
-
-    end
-  end
-
 
   # DELETE /assignments/1
   # DELETE /assignments/1.json

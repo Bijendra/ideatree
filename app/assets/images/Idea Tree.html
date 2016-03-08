@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>Idea Tree</title>
+  <link rel="shortcut icon" href="http://localhost:3000/assets/icon.ico">
+  <link rel="stylesheet" media="all" href="Idea%20Tree_files/active_admin.css" data-turbolinks-track="true">
+<link rel="stylesheet" media="all" href="Idea%20Tree_files/application.css" data-turbolinks-track="true">
+<link rel="stylesheet" media="all" href="Idea%20Tree_files/assignments.css" data-turbolinks-track="true">
+<link rel="stylesheet" media="all" href="Idea%20Tree_files/categories.css" data-turbolinks-track="true">
+<link rel="stylesheet" media="all" href="Idea%20Tree_files/comments.css" data-turbolinks-track="true">
+<link rel="stylesheet" media="all" href="Idea%20Tree_files/homes.css" data-turbolinks-track="true">
+<link rel="stylesheet" media="all" href="Idea%20Tree_files/scaffolds.css" data-turbolinks-track="true">
+<link rel="stylesheet" media="all" href="Idea%20Tree_files/tags.css" data-turbolinks-track="true">
+<link rel="stylesheet" media="all" href="Idea%20Tree_files/users.css" data-turbolinks-track="true">
+  <script src="Idea%20Tree_files/jquery_002.js" data-turbolinks-track="true"></script>
+<script src="Idea%20Tree_files/jquery_ujs.js" data-turbolinks-track="true"></script>
+<script src="Idea%20Tree_files/turbolinks.js" data-turbolinks-track="true"></script>
+<script src="Idea%20Tree_files/affix.js" data-turbolinks-track="true"></script>
+<script src="Idea%20Tree_files/alert.js" data-turbolinks-track="true"></script>
+<script src="Idea%20Tree_files/button.js" data-turbolinks-track="true"></script>
+<script src="Idea%20Tree_files/carousel.js" data-turbolinks-track="true"></script>
+<script src="Idea%20Tree_files/collapse.js" data-turbolinks-track="true"></script>
+<script src="Idea%20Tree_files/dropdown.js" data-turbolinks-track="true"></script>
+<script src="Idea%20Tree_files/tab.js" data-turbolinks-track="true"></script>
+<script src="Idea%20Tree_files/transition.js" data-turbolinks-track="true"></script>
+<script src="Idea%20Tree_files/scrollspy.js" data-turbolinks-track="true"></script>
+<script src="Idea%20Tree_files/modal.js" data-turbolinks-track="true"></script>
+<script src="Idea%20Tree_files/tooltip.js" data-turbolinks-track="true"></script>
+<script src="Idea%20Tree_files/popover.js" data-turbolinks-track="true"></script>
+<script src="Idea%20Tree_files/bootstrap-sprockets.js" data-turbolinks-track="true"></script>
+<script src="Idea%20Tree_files/core.js" data-turbolinks-track="true"></script>
+<script src="Idea%20Tree_files/datepicker.js" data-turbolinks-track="true"></script>
+<script src="Idea%20Tree_files/widget.js" data-turbolinks-track="true"></script>
+<script src="Idea%20Tree_files/button_002.js" data-turbolinks-track="true"></script>
+<script src="Idea%20Tree_files/mouse.js" data-turbolinks-track="true"></script>
+<script src="Idea%20Tree_files/draggable.js" data-turbolinks-track="true"></script>
+<script src="Idea%20Tree_files/position.js" data-turbolinks-track="true"></script>
+<script src="Idea%20Tree_files/resizable.js" data-turbolinks-track="true"></script>
+<script src="Idea%20Tree_files/dialog.js" data-turbolinks-track="true"></script>
+<script src="Idea%20Tree_files/sortable.js" data-turbolinks-track="true"></script>
+<script src="Idea%20Tree_files/tabs.js" data-turbolinks-track="true"></script>
+<script src="Idea%20Tree_files/jquery_ui.js" data-turbolinks-track="true"></script>
+<script src="Idea%20Tree_files/base.js" data-turbolinks-track="true"></script>
+<script src="Idea%20Tree_files/batch_actions.js" data-turbolinks-track="true"></script>
+<script src="Idea%20Tree_files/checkbox-toggler.js" data-turbolinks-track="true"></script>
+<script src="Idea%20Tree_files/dropdown-menu.js" data-turbolinks-track="true"></script>
+<script src="Idea%20Tree_files/flash.js" data-turbolinks-track="true"></script>
+<script src="Idea%20Tree_files/has_many.js" data-turbolinks-track="true"></script>
+<script src="Idea%20Tree_files/modal_dialog.js" data-turbolinks-track="true"></script>
+<script src="Idea%20Tree_files/per_page.js" data-turbolinks-track="true"></script>
+<script src="Idea%20Tree_files/table-checkbox-toggler.js" data-turbolinks-track="true"></script>
+<script src="Idea%20Tree_files/jquery-ui.js" data-turbolinks-track="true"></script>
+<script src="Idea%20Tree_files/jquery.js" data-turbolinks-track="true"></script>
+<script src="Idea%20Tree_files/application_002.js" data-turbolinks-track="true"></script>
+<script src="Idea%20Tree_files/active_admin.js" data-turbolinks-track="true"></script>
+<script src="Idea%20Tree_files/assignments.js" data-turbolinks-track="true"></script>
+<script src="Idea%20Tree_files/categories.js" data-turbolinks-track="true"></script>
+<script src="Idea%20Tree_files/comments.js" data-turbolinks-track="true"></script>
+<script src="Idea%20Tree_files/homes.js" data-turbolinks-track="true"></script>
+<script src="Idea%20Tree_files/tags.js" data-turbolinks-track="true"></script>
+<script src="Idea%20Tree_files/users.js" data-turbolinks-track="true"></script>
+<script src="Idea%20Tree_files/application.js" data-turbolinks-track="true"></script>
+  <meta name="csrf-param" content="authenticity_token">
+<meta name="csrf-token" content="6dJ3ypLRAB6iQLN6GnWPwaS5F1wBtcvee9dwEdfEfm8zA8PNLDouW+U+Pyg3tiZgmLdZXxfDR4NLQ1ZeTnO+aA==">
+</head>
+<body>
+<div class="container-fluid">
+  <div class="header-info" style="margin-top:20px;height:30px;position: relative;
+    z-index: 1;
+    font-size: 17px;
+    background-color: #e6e6e6;
+    color: #f1f1f1;
+    width: 100%;
+    letter-spacing: 1px;">
+	  <div class="login_account_detail" style="font-color:black">
+		  <ul class="hmenu ">
+          <a href="http://localhost:3000/users/4" class="btn btn-primary btn-lg active" role="button">
+        	Logged in as <strong>bhumika@gmail.com</strong></a>
+		      <li>
+  <a href="http://localhost:3000/users/edit">Edit registration</a>
+  </li>
+
+		      <li>
+  <a rel="nofollow" data-method="delete" href="http://localhost:3000/users/sign_out">Logout</a>        
+  </li>
+
+		  </ul>
+	  </div>
+  </div>
+  <div class="home_nav_bar">
+      <h1>Shape your idea with us</h1>
+      <div class="container">
+        
+<div class="row" style=" height: 30px;
+    background: #999999; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(left,#999999, white); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(right,#999999, white); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(right,#999999, white); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(to right,#999999, white); /* Standard syntax (must be last) */;
+    font-color:black; font-size:20px; padding:10px">
+
+	<a href="http://localhost:3000/assignments" class="btn btn-primary btn-lg active" role="button">Browse</a>
+	<a href="http://localhost:3000/assignments/new" class="btn btn-primary btn-lg active" role="button">Submit</a>
+		<a href="http://localhost:3000/users/4" class="btn btn-primary btn-lg active" role="button">Contributions</a>
+</div>
+
+
+<br>
+      </div>
+      <br>
+  </div>
+  <p id="notice"></p>
+<h1 style="margin-left:20%">Listing Ideas</h1>
+<div style="margin-left:20%;width:900px; border-style: outset; box-shadow: 0 2px 4px 0 rgba(0,0,0,0.50),0 2px 10px 0 rgba(0,0,0,0.18) !important;">
+        
+    <div style="margin-left:10%;margin-top:50px; width:200px,display:table">
+
+        <div style="font-size:20px;margin-top:50px ; width:620px; float:left;">
+                        4
+                    </div><div style="width:40px; float: right; margin-top:50px">
+                        <a href="http://localhost:3000/assignments/7/edit"><img src="Idea%20Tree_files/edit-d85460e6880bd7f30419cb84b101a87036fed34f9f759c828438831.png" alt="Edit d85460e6880bd7f30419cb84b101a87036fed34f9f759c82843883111b695e0e" height="15" width="15"></a>
+
+                    
+                        <a data-confirm="Are you sure?" rel="nofollow" data-method="delete" href="http://localhost:3000/assignments/7"><img src="Idea%20Tree_files/delete-3a5e69e904e18e90ecc9c98ff21c4b7c934756d227bde618cf6b4.png" alt="Delete 3a5e69e904e18e90ecc9c98ff21c4b7c934756d227bde618cf6b4a017d37853c" height="15" width="15"></a>
+                    </div><br><br><br><img src="Idea%20Tree_files/share_your_ideas_002.jpg" alt="Share your ideas" height="300" width="400"><br><div>
+                  </div><div style="font-size:20px;float:left;width:600px">
+                        SCO IDEAS -
+to improve the UI.
+Make it little more attractive. Maybe adding templates or something
+                    </div><br><br><br>Category = Technology<br>
+
+                    #&lt;ActiveRecord::Relation [#&lt;Like id: 69, 
+assignment_id: "7", user_id: "4", created_at: "2016-03-01 07:41:07", 
+updated_at: "2016-03-07 06:35:23", status: true&gt;]&gt;
+
+
+                       
+
+
+                    <div class="like-count" id="like-7">
+                    1  
+                    </div><div id="likepic-7">
+                    <a class="vote" data-remote="true" rel="nofollow" data-method="put" href="http://localhost:3000/assignments/7/like?status=true"><img src="Idea%20Tree_files/thumbs-up-fdeed1ff51d9f4625f9fdc1d7e5b77839d956e60ad33b26d14.png" alt="Thumbs up fdeed1ff51d9f4625f9fdc1d7e5b77839d956e60ad33b26d14db61f91179dfb2"></a>
+                    </div><br><div class="unlike-count" id="unlike-7">
+                    1
+                    </div><div id="unlikepic-7">
+                    <a class="vote" data-remote="true" rel="nofollow" data-method="put" href="http://localhost:3000/assignments/7/like?status=false"><img src="Idea%20Tree_files/empty_thumbs-down-75df7be9230467917a2e83109e2ce799972a238fe8.png" alt="Empty thumbs down 75df7be9230467917a2e83109e2ce799972a238fe8953cf6f37e0e9948dd53f1"></a>
+                   </div><br><a data-remote="true" data-method="get" href="http://localhost:3000/more_comments/7">MORE</a><a href="http://localhost:3000/comments.7">More Comments</a><div style="display:table;width:200px">
+    </div><table border="2">
+    
+
+                <tbody><tr>
+                     
+
+                    
+                </tr>
+                    
+
+               
+                
+                
+                <tr>
+                    
+                </tr> 
+                
+                  <tr> 
+                  
+                    
+                </tr>
+                    
+              
+
+                <tr></tr>
+                
+                <tr>
+                    
+                    
+
+
+                   
+                    
+                </tr>
+                
+                <tr>
+                     
+
+
+
+</tr></tbody></table><table style="margin:5px;width:200px" class="table" id="comment_table-7">
+      <thead>
+        <tr>
+          <th>Comments</th>
+        </tr>
+      </thead>
+	  <tbody id="comment-modal">
+
+	      <tr>
+	                 
+ </tr><tr>
+<td> 
+<div style="background:#f1f1f1;width:600px; border-style: outset; box-shadow: 0 2px 4px 0 rgba(0,0,0,0),0 2px 10px 0 rgba(0,0,0,0.18) !important;">  
+ 
+latset com 
+</div>
+</td>
+</tr>
+        
+ <tr>
+<td> 
+<div style="background:#f1f1f1;width:600px; border-style: outset; box-shadow: 0 2px 4px 0 rgba(0,0,0,0),0 2px 10px 0 rgba(0,0,0,0.18) !important;">  
+ 
+pre 
+</div>
+</td>
+</tr>
+ <!--  <#% if current_user.id.to_s == comment.user_id.to_s %>
+	         <td></td> 
+	        <td></td>
+	        <td></td>
+</tr>	 -->
+
+	      
+	        
+	  </tbody>
+	</table>
+
+<script>
+  var submitComment = function(){
+      $.ajax(
+      	url: "/create_comment_ajax",
+      	method: post,
+      	//data: 1,
+    	data: {content: content, assignment: assign},
+		success: function displayBackComment(){
+           $("#comment-modal").append("content");
+           $("#comment-modal").modal("content");
+
+    	 }
+     
+  	 )};
+</script>
+
+
+
+                
+                <form class="new_comment" id="new_comment" action="http://localhost:3000/create_comment_ajax" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" value="✓" type="hidden">
+
+	<div class="field">
+	  	<label for="comment_comment_here">Comment here</label>:
+  		<input id="com" name="comment[content]" type="text"><br>
+
+  	</div>
+  	<div class="actions">
+		<input name="commit" value="Submit" type="submit">
+		    <input name="assignment_id" id="assignment_id" value="7" type="hidden"> 
+		   <script type="text/javascript">
+		   </script>
+	</div>
+</form>
+
+
+                
+                
+                
+
+                
+                
+                
+                <br>
+                
+                    <div style="font-size:20px;margin-top:50px ; width:620px; float:left;">
+                        4
+                    </div> 
+
+                    <div style="width:40px; float: right; margin-top:50px">
+                        <a href="http://localhost:3000/assignments/10/edit"><img src="Idea%20Tree_files/edit-d85460e6880bd7f30419cb84b101a87036fed34f9f759c828438831.png" alt="Edit d85460e6880bd7f30419cb84b101a87036fed34f9f759c82843883111b695e0e" height="15" width="15"></a>
+
+                    
+                        <a data-confirm="Are you sure?" rel="nofollow" data-method="delete" href="http://localhost:3000/assignments/10"><img src="Idea%20Tree_files/delete-3a5e69e904e18e90ecc9c98ff21c4b7c934756d227bde618cf6b4.png" alt="Delete 3a5e69e904e18e90ecc9c98ff21c4b7c934756d227bde618cf6b4a017d37853c" height="15" width="15"></a>
+                    </div>
+                
+                    <br>
+
+               
+                <br>
+                <br>
+                
+                    <img src="Idea%20Tree_files/all-sports.png" alt="All sports" height="300" width="400">
+                 
+                <br>
+                   
+                  <div>
+                  </div>
+                    <div style="font-size:20px;float:left;width:600px">
+                        SPORTS
+To have some more games
+                    </div>
+                
+                    <br>
+              <br><br>
+
+                Category = Sports
+                <br>
+                
+
+                    #&lt;ActiveRecord::Relation [#&lt;Like id: 64, 
+assignment_id: "10", user_id: "4", created_at: "2016-03-01 06:11:49", 
+updated_at: "2016-03-07 10:02:11", status: false&gt;]&gt;
+
+
+
+                    <div class="like-count" id="like-10">
+                    1  
+                    </div>
+                    <div id="likepic-10">
+                    <a class="vote" data-remote="true" rel="nofollow" data-method="put" href="http://localhost:3000/assignments/10/like?status=true"><img src=""></a>
+                    </div>
+                    <br>
+
+
+                   <div class="unlike-count" id="unlike-10">
+                    0
+                    </div>
+                    <div id="unlikepic-10">
+                    <a class="vote" data-remote="true" rel="nofollow" data-method="put" href="http://localhost:3000/assignments/10/like?status=false"><img src=""></a>
+                   </div>
+                
+                <br>
+                
+                     <a data-remote="true" data-method="get" href="http://localhost:3000/more_comments/10">MORE</a>
+
+<a href="http://localhost:3000/comments.10">More Comments</a>
+
+<div style="display:table;width:200px">
+    <table style="margin:5px;width:200px" class="table" id="comment_table-10">
+      <thead>
+        <tr>
+          <th>Comments</th>
+        </tr>
+      </thead>
+	  <tbody id="comment-modal">
+
+	      <tr>
+	                 
+ </tr><tr>
+<td> 
+<div style="background:#f1f1f1;width:600px; border-style: outset; box-shadow: 0 2px 4px 0 rgba(0,0,0,0),0 2px 10px 0 rgba(0,0,0,0.18) !important;">  
+ 
+after new com form 
+</div>
+</td>
+</tr>
+        
+ <tr>
+<td> 
+<div style="background:#f1f1f1;width:600px; border-style: outset; box-shadow: 0 2px 4px 0 rgba(0,0,0,0),0 2px 10px 0 rgba(0,0,0,0.18) !important;">  
+ 
+new com after prepend 
+</div>
+</td>
+</tr>
+ <!--  <#% if current_user.id.to_s == comment.user_id.to_s %>
+	         <td></td> 
+	        <td></td>
+	        <td></td>
+</tr>	 -->
+
+	      
+	        
+	  </tbody>
+	</table>
+
+<script>
+  var submitComment = function(){
+      $.ajax(
+      	url: "/create_comment_ajax",
+      	method: post,
+      	//data: 1,
+    	data: {content: content, assignment: assign},
+		success: function displayBackComment(){
+           $("#comment-modal").append("content");
+           $("#comment-modal").modal("content");
+
+    	 }
+     
+  	 )};
+</script>
+
+
+
+                
+                <form class="new_comment" id="new_comment" action="http://localhost:3000/create_comment_ajax" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" value="✓" type="hidden">
+
+	<div class="field">
+	  	<label for="comment_comment_here">Comment here</label>:
+  		<input id="com" name="comment[content]" type="text"><br>
+
+  	</div>
+  	<div class="actions">
+		<input name="commit" value="Submit" type="submit">
+		    <input name="assignment_id" id="assignment_id" value="10" type="hidden"> 
+		   <script type="text/javascript">
+		   </script>
+	</div>
+</form>
+
+
+                
+                
+                
+
+                
+                
+                
+                <br>
+                
+                    <div style="font-size:20px;margin-top:50px ; width:620px; float:left;">
+                        4
+                    </div> 
+
+                    <div style="width:40px; float: right; margin-top:50px">
+                        <a href="http://localhost:3000/assignments/13/edit"><img src="Idea%20Tree_files/edit-d85460e6880bd7f30419cb84b101a87036fed34f9f759c828438831.png" alt="Edit d85460e6880bd7f30419cb84b101a87036fed34f9f759c82843883111b695e0e" height="15" width="15"></a>
+
+                    
+                        <a data-confirm="Are you sure?" rel="nofollow" data-method="delete" href="http://localhost:3000/assignments/13"><img src="Idea%20Tree_files/delete-3a5e69e904e18e90ecc9c98ff21c4b7c934756d227bde618cf6b4.png" alt="Delete 3a5e69e904e18e90ecc9c98ff21c4b7c934756d227bde618cf6b4a017d37853c" height="15" width="15"></a>
+                    </div>
+                
+                    <br>
+
+               
+                <br>
+                <br>
+                
+                    <img src="Idea%20Tree_files/voicemail.jpg" alt="Voicemail" height="300" width="400">
+                 
+                <br>
+                   
+                  <div>
+                  </div>
+                    <div style="font-size:20px;float:left;width:600px">
+                         There are lots of great ideas out there, but 
+since I've only used them and haven't thought of many on my own, I 
+should probably just give the web sites I got them from. :) The only 
+thing I've done originally is arrange a "voice mail song" for 3 parts 
+and got my friends to sing them with me. Here are some good ideas: 
+
+http://www.creativevoicemailmessages.com... 
+
+http://www.jpallas.com/phone/answermach.... 
+
+http://www.allanne.com/funny-answering-m... 
+
+http://www.freefonefun.co.uk/ff/voicemail/
+                    </div>
+                
+                    <br>
+              <br><br>
+
+                Category = Technology
+                <br>
+                
+
+                    #&lt;ActiveRecord::Relation [#&lt;Like id: 65, 
+assignment_id: "13", user_id: "4", created_at: "2016-03-01 06:32:46", 
+updated_at: "2016-03-07 10:02:25", status: false&gt;]&gt;
+
+
+
+                    <div class="like-count" id="like-13">
+                      
+                    </div>
+                    <div id="likepic-13">
+                    <a class="vote" data-remote="true" rel="nofollow" data-method="put" href="http://localhost:3000/assignments/13/like?status=true"><img src=""></a>
+                    </div>
+                    <br>
+
+
+                   <div class="unlike-count" id="unlike-13">
+                    0
+                    </div>
+                    <div id="unlikepic-13">
+                    <a class="vote" data-remote="true" rel="nofollow" data-method="put" href="http://localhost:3000/assignments/13/like?status=false"><img src=""></a>
+                   </div>
+                
+                <br>
+                
+                     <a data-remote="true" data-method="get" href="http://localhost:3000/more_comments/13">MORE</a>
+
+<a href="http://localhost:3000/comments.13">More Comments</a>
+
+<div style="display:table;width:200px">
+    <table style="margin:5px;width:200px" class="table" id="comment_table-13">
+      <thead>
+        <tr>
+          <th>Comments</th>
+        </tr>
+      </thead>
+	  <tbody id="comment-modal">
+
+	      <tr>
+	                 
+ </tr><tr>
+<td> 
+<div style="background:#f1f1f1;width:600px; border-style: outset; box-shadow: 0 2px 4px 0 rgba(0,0,0,0),0 2px 10px 0 rgba(0,0,0,0.18) !important;">  
+ 
+ok 
+</div>
+</td>
+</tr>
+        
+ <tr>
+<td> 
+<div style="background:#f1f1f1;width:600px; border-style: outset; box-shadow: 0 2px 4px 0 rgba(0,0,0,0),0 2px 10px 0 rgba(0,0,0,0.18) !important;">  
+ 
+ok 
+</div>
+</td>
+</tr>
+ <!--  <#% if current_user.id.to_s == comment.user_id.to_s %>
+	         <td></td> 
+	        <td></td>
+	        <td></td>
+</tr>	 -->
+
+	      
+	        
+	  </tbody>
+	</table>
+
+<script>
+  var submitComment = function(){
+      $.ajax(
+      	url: "/create_comment_ajax",
+      	method: post,
+      	//data: 1,
+    	data: {content: content, assignment: assign},
+		success: function displayBackComment(){
+           $("#comment-modal").append("content");
+           $("#comment-modal").modal("content");
+
+    	 }
+     
+  	 )};
+</script>
+
+
+
+                
+                <form class="new_comment" id="new_comment" action="http://localhost:3000/create_comment_ajax" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" value="✓" type="hidden">
+
+	<div class="field">
+	  	<label for="comment_comment_here">Comment here</label>:
+  		<input id="com" name="comment[content]" type="text"><br>
+
+  	</div>
+  	<div class="actions">
+		<input name="commit" value="Submit" type="submit">
+		    <input name="assignment_id" id="assignment_id" value="13" type="hidden"> 
+		   <script type="text/javascript">
+		   </script>
+	</div>
+</form>
+
+
+                
+                
+                
+
+                
+                
+                
+                <br>
+                
+                    <div style="font-size:20px;margin-top:50px ; width:620px; float:left;">
+                        4
+                    </div> 
+
+                    <div style="width:40px; float: right; margin-top:50px">
+                        <a href="http://localhost:3000/assignments/15/edit"><img src="Idea%20Tree_files/edit-d85460e6880bd7f30419cb84b101a87036fed34f9f759c828438831.png" alt="Edit d85460e6880bd7f30419cb84b101a87036fed34f9f759c82843883111b695e0e" height="15" width="15"></a>
+
+                    
+                        <a data-confirm="Are you sure?" rel="nofollow" data-method="delete" href="http://localhost:3000/assignments/15"><img src="Idea%20Tree_files/delete-3a5e69e904e18e90ecc9c98ff21c4b7c934756d227bde618cf6b4.png" alt="Delete 3a5e69e904e18e90ecc9c98ff21c4b7c934756d227bde618cf6b4a017d37853c" height="15" width="15"></a>
+                    </div>
+                
+                    <br>
+
+               
+                <br>
+                <br>
+                
+                    <img src="Idea%20Tree_files/share_your_ideas.jpg" alt="Share your ideas" height="300" width="400">
+                 
+                <br>
+                   
+                  <div>
+                  </div>
+                    <div style="font-size:20px;float:left;width:600px">
+                        new idea
+                    </div>
+                
+                    <br>
+              <br><br>
+
+                Category = Technology
+                <br>
+                
+
+                    #&lt;ActiveRecord::Relation [#&lt;Like id: 70, 
+assignment_id: "15", user_id: "4", created_at: "2016-03-01 09:33:08", 
+updated_at: "2016-03-07 05:28:21", status: false&gt;]&gt;
+
+
+
+                    <div class="like-count" id="like-15">
+                    1  
+                    </div>
+                    <div id="likepic-15">
+                    <a class="vote" data-remote="true" rel="nofollow" data-method="put" href="http://localhost:3000/assignments/15/like?status=true"><img src=""></a>
+                    </div>
+                    <br>
+
+
+                   <div class="unlike-count" id="unlike-15">
+                    0
+                    </div>
+                    <div id="unlikepic-15">
+                    <a class="vote" data-remote="true" rel="nofollow" data-method="put" href="http://localhost:3000/assignments/15/like?status=false"><img src=""></a>
+                   </div>
+                
+                <br>
+                
+                     <a data-remote="true" data-method="get" href="http://localhost:3000/more_comments/15">MORE</a>
+
+<a href="http://localhost:3000/comments.15">More Comments</a>
+
+<div style="display:table;width:200px">
+    <table style="margin:5px;width:200px" class="table" id="comment_table-15">
+      <thead>
+        <tr>
+          <th>Comments</th>
+        </tr>
+      </thead>
+	  <tbody id="comment-modal">
+
+	      <tr>
+	                 
+ </tr><tr>
+<td> 
+<div style="background:#f1f1f1;width:600px; border-style: outset; box-shadow: 0 2px 4px 0 rgba(0,0,0,0),0 2px 10px 0 rgba(0,0,0,0.18) !important;">  
+ 
+ya 
+</div>
+</td>
+</tr>
+        
+ <tr>
+<td> 
+<div style="background:#f1f1f1;width:600px; border-style: outset; box-shadow: 0 2px 4px 0 rgba(0,0,0,0),0 2px 10px 0 rgba(0,0,0,0.18) !important;">  
+ 
+now 
+</div>
+</td>
+</tr>
+ <!--  <#% if current_user.id.to_s == comment.user_id.to_s %>
+	         <td></td> 
+	        <td></td>
+	        <td></td>
+</tr>	 -->
+
+	      
+	        
+	  </tbody>
+	</table>
+
+<script>
+  var submitComment = function(){
+      $.ajax(
+      	url: "/create_comment_ajax",
+      	method: post,
+      	//data: 1,
+    	data: {content: content, assignment: assign},
+		success: function displayBackComment(){
+           $("#comment-modal").append("content");
+           $("#comment-modal").modal("content");
+
+    	 }
+     
+  	 )};
+</script>
+
+
+
+                
+                <form class="new_comment" id="new_comment" action="http://localhost:3000/create_comment_ajax" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" value="✓" type="hidden">
+
+	<div class="field">
+	  	<label for="comment_comment_here">Comment here</label>:
+  		<input id="com" name="comment[content]" type="text"><br>
+
+  	</div>
+  	<div class="actions">
+		<input name="commit" value="Submit" type="submit">
+		    <input name="assignment_id" id="assignment_id" value="15" type="hidden"> 
+		   <script type="text/javascript">
+		   </script>
+	</div>
+</form>
+
+
+                
+                
+                
+
+                
+                
+                
+                <br>
+                
+                    <div style="font-size:20px;margin-top:50px ; width:620px; float:left;">
+                        4
+                    </div> 
+
+                    <div style="width:40px; float: right; margin-top:50px">
+                        <a href="http://localhost:3000/assignments/16/edit"><img src="Idea%20Tree_files/edit-d85460e6880bd7f30419cb84b101a87036fed34f9f759c828438831.png" alt="Edit d85460e6880bd7f30419cb84b101a87036fed34f9f759c82843883111b695e0e" height="15" width="15"></a>
+
+                    
+                        <a data-confirm="Are you sure?" rel="nofollow" data-method="delete" href="http://localhost:3000/assignments/16"><img src="Idea%20Tree_files/delete-3a5e69e904e18e90ecc9c98ff21c4b7c934756d227bde618cf6b4.png" alt="Delete 3a5e69e904e18e90ecc9c98ff21c4b7c934756d227bde618cf6b4a017d37853c" height="15" width="15"></a>
+                    </div>
+                
+                    <br>
+
+               
+                <br>
+                <br>
+                
+                    <img src="Idea%20Tree_files/missing.html" alt="Missing" height="300" width="400">
+                 
+                <br>
+                   
+                  <div>
+                  </div>
+                    <div style="font-size:20px;float:left;width:600px">
+                        no image
+                    </div>
+                
+                    <br>
+              <br><br>
+
+                Category = Technology
+                <br>
+                
+
+                    #&lt;ActiveRecord::Relation [#&lt;Like id: 75, 
+assignment_id: "16", user_id: "4", created_at: "2016-03-03 10:22:32", 
+updated_at: "2016-03-07 10:09:29", status: true&gt;]&gt;
+
+
+
+                    <div class="like-count" id="like-16">0 </div>
+                    <div id="likepic-16">
+                    <a class="vote" data-remote="true" rel="nofollow" data-method="put" href="http://localhost:3000/assignments/16/like?status=true"><img src="Idea%20Tree_files/33.png"></a>
+                    </div>
+                    <br>
+
+
+                   <div class="unlike-count" id="unlike-16">0</div>
+                    <div id="unlikepic-16">
+                    <a class="vote" data-remote="true" rel="nofollow" data-method="put" href="http://localhost:3000/assignments/16/like?status=false"><img src="Idea%20Tree_files/thumbs_down.png"></a>
+                   </div>
+                
+                <br>
+                
+                     <a data-remote="true" data-method="get" href="http://localhost:3000/more_comments/16">MORE</a>
+
+<a href="http://localhost:3000/comments.16">More Comments</a>
+
+<div style="display:table;width:200px">
+    <table style="margin:5px;width:200px" class="table" id="comment_table-16">
+      <thead>
+        <tr>
+          <th>Comments</th>
+        </tr>
+      </thead>
+	  <tbody id="comment-modal">
+
+	      <tr>
+	                 
+ </tr><tr>
+<td> 
+<div style="background:#f1f1f1;width:600px; border-style: outset; box-shadow: 0 2px 4px 0 rgba(0,0,0,0),0 2px 10px 0 rgba(0,0,0,0.18) !important;">  
+ 
+end 
+</div>
+</td>
+</tr>
+        
+ <tr>
+<td> 
+<div style="background:#f1f1f1;width:600px; border-style: outset; box-shadow: 0 2px 4px 0 rgba(0,0,0,0),0 2px 10px 0 rgba(0,0,0,0.18) !important;">  
+ 
+4 
+</div>
+</td>
+</tr>
+ <!--  <#% if current_user.id.to_s == comment.user_id.to_s %>
+	         <td></td> 
+	        <td></td>
+	        <td></td>
+</tr>	 -->
+
+	      
+	        
+	  </tbody>
+	</table>
+
+<script>
+  var submitComment = function(){
+      $.ajax(
+      	url: "/create_comment_ajax",
+      	method: post,
+      	//data: 1,
+    	data: {content: content, assignment: assign},
+		success: function displayBackComment(){
+           $("#comment-modal").append("content");
+           $("#comment-modal").modal("content");
+
+    	 }
+     
+  	 )};
+</script>
+
+
+
+                
+                <form class="new_comment" id="new_comment" action="http://localhost:3000/create_comment_ajax" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" value="✓" type="hidden">
+
+	<div class="field">
+	  	<label for="comment_comment_here">Comment here</label>:
+  		<input id="com" name="comment[content]" type="text"><br>
+
+  	</div>
+  	<div class="actions">
+		<input name="commit" value="Submit" type="submit">
+		    <input name="assignment_id" id="assignment_id" value="16" type="hidden"> 
+		   <script type="text/javascript">
+		   </script>
+	</div>
+</form>
+
+
+                
+                
+                
+
+                
+                
+                
+                <br>
+        
+    </div>
+</div>
+
+
+
+<script type="text/javascript">
+    function changeText() {}
+        
+        document.getElementById('lik').innerHTML ='00'; 
+        return false;
+  
+ }
+</script>
+
+
+
+</div>
+
+
+
+</div></div></div></div></body></html>

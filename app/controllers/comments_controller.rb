@@ -8,7 +8,7 @@ class CommentsController < ApplicationController
     p params
     p "S"*100
     @comments = Comment.all
-    @ass = Assignment.all
+    @all_assignment = Assignment.all
     @assignment = Assignment.find(params[:format])
     @comment = Comment.new
   end
@@ -41,10 +41,13 @@ class CommentsController < ApplicationController
   def create_comment_ajax
     # @comment
     # handle ajax call
+        assignment_obj = Assignment.find(params[:assignment_id])
+
       respond_to do |format|
       if @comment.save
+        
         # format.html { redirect_to @assignment, notice: 'comment was successfully created.' }
-        format.js { render action: 'show', status: :created, location: @comment }
+        format.js { render action: 'show', status: :created, location: @comment , locals: {assignment_id: assignment_obj}}
         # added:
         # format.js   { render action: 'show', status: :created, location: @comment }
       else
@@ -65,6 +68,16 @@ class CommentsController < ApplicationController
     #render "create_comment_ajax"
     p "d"*100
 
+  end 
+
+
+  def more_comments
+
+        @assignment_obj = Assignment.find(params[:id])
+        @com = Comment.where(assignment_id: @assignment_obj).reverse.drop(2).map(&:content)
+        p "$"*100
+        p @assignment_obj.id
+        p @com
   end  
   # PATCH/PUT /comments/1
   # PATCH/PUT /comments/1.json
@@ -84,10 +97,12 @@ class CommentsController < ApplicationController
   # DELETE /comments/1.json
   def destroy
     comment = Comment.find(params[:id])
+    ass_id = comment.assignment_id
     comment.destroy
     respond_to do |format|
-      format.html { redirect_to comment_url, notice: 'Comment was successfully destroyed.' }
-      format.json { head :no_content }
+      format.html { redirect_to comments_path(ass_id)}
+
+    #   format.json { head :no_content }
     end
   end
 

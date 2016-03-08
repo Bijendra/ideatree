@@ -3,7 +3,7 @@
 <%#= render :partial => "shared/home_nav_bar" %>
 <div style="margin-left:20%;width:900px; border-style: outset; box-shadow: 0 2px 4px 0 rgba(0,0,0,0.50),0 2px 10px 0 rgba(0,0,0,0.18) !important;" >
         
-    <div style="margin-left:10%;margin-top:50px; width:650px,display:table,margin-right:10%;">
+    <div style="margin-left:10%;margin-top:50px; width:200px,display:table">
 
         <table border="2" >
     
@@ -15,7 +15,7 @@
                     </div> 
 
                     <% if user_signed_in? && current_user.id == assignment.user_id %>
-                    <div style="width:40px; float: right">
+                    <div style="width:40px; float: right; margin-top:50px">
                         <%= link_to image_tag("edit.png", :size => "15x15"),edit_assignment_path(assignment) %>
 
                     
@@ -25,43 +25,74 @@
                 </tr>
                     <br>
 
+               
+                <br>
+                <br>
                 <tr>
                     <%# if File.exist?(assignment.avatar.url) %>
                     <%= image_tag assignment.avatar.url, :size => "400x300" %>
                     <%#end%>
                 </tr> 
                 <br>
-
-                <tr> 
-                    <div style="font-size:20px">
+                  <tr> 
+                  <div>
+                  <%#= image_tag @user.where(:id => assignment.id).first.avatar_file_name.url, :size => "100x100" %>
+                  </div>
+                    <div style="font-size:20px;float:left;width:600px">
                         <%= assignment.description %>
                     </div>
-                </tr> 
-                <br>
+                </tr>
+                    <br>
+              <br><br>
 
                 <tr>Category = <%= assignment.category_id %></tr>
                 <br>
-                <tr><%#= link_to 'Like', like_path(assignment) %>
-                    <% if user_signed_in? %>
-                    <%# if current_user.id.liked? @assignment %>
-                    <%= link_to "Like", like_assignment_path(assignment), class: 'vote', method: :put, remote: true , data: { toggle_text: 'Unlike', toggle_href: unlike_assignment_path(assignment)}%>
-                    <% else %>
-                    <%= link_to "Unlike", unlike_assignment_path(assignment), class: 'vote', method: :put , remote: true  %>
-                    <span class="votes-count" data-id="<%= assignment.id %>">
-                    <%= assignment.get_likes.size %>
-                    </span>
-                users like this
-                <% end %>
+                <tr>
 
+
+                    <% if !@like_obj.where(assignment_id: assignment.id, user_id: current_user.id).blank? %> 
+                        <% likepic,unlikepic = case @like_obj.where(assignment_id: assignment.id,user_id: current_user.id).first.status 
+                            when true
+                                ["thumbs-up","empty_thumbs-down"]
+                            when false
+                                ["empty_thumbs-up","thumbs-down"]
+                            when nil
+                                ["empty_thumbs-up","empty_thumbs-down"]
+                            end %>
+                        <% like_count = @like_count[assignment.id.to_s]
+                            unlike_count = @unlike_count[assignment.id.to_s] %>
+                   
+                    <% else %>
+                        <% like_count = 0
+                            unlike_count = 0
+                            likepic,unlikepic = ["empty_thumbs-up","empty_thumbs-down"] %>
+                    <% end %>
+
+                    <div class="like-count" id="like-<%= assignment.id %>">
+                    <%= like_count %>  
+                    </div>
+                    <div id="likepic-<%= assignment.id %>">
+                    <%= link_to image_tag(likepic), like_assignment_path(assignment,status: true),  class: 'vote', method: :put, remote: true %>
+                    </div>
+                    <br>
+
+                   <div class="unlike-count" id="unlike-<%= assignment.id %>">
+                    <%= unlike_count %>
+                    </div>
+                    <div id="unlikepic-<%= assignment.id %>">
+                    <%= link_to image_tag(unlikepic), like_assignment_path(assignment,status: false), class: 'vote', method: :put , remote: true  %>
+                   </div>
                 </tr>
                 <br>
                 <tr>
-                
+                <% if @comments[assignment.id] !=nil %>
+    <% all_comment = @comments[assignment.id] %>
+   <% all_comment =  all_comment.reverse.map(&:content) %>
+                     <%= render partial: 'comments/assgn_comment', locals: {all_comment: all_comment ,assignid: assignment.id} %>
 
-    
-                     <%= render partial: 'comments/assgn_comment', locals: {comm: @comments[assignment.id] ,assignid: assignment.id, com: @com} %>
-
-      
+      <% end %>
+                <tr>
+                <%= render partial: 'comments/new_comment_form', locals: { assignid: assignment.id} %>
 
                 
                 </tr>
@@ -77,5 +108,16 @@
         </table>
     </div>
 </div>
+
+
+
+<script type="text/javascript">
+    function changeText() {}
+        
+        document.getElementById('lik').innerHTML ='00'; 
+        return false;
+  
+ }
+</script>
 
 

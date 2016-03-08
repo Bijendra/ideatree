@@ -1,48 +1,27 @@
-  <% if comm != nil %>
-  <% if comm.count > 2 %>
+<% if all_comment != nil %>
+<% if all_comment.count > 2 %>
+<%= link_to "MORE", more_comments_path(assignid),method: :get, remote: true%>
+
 <%= link_to 'More Comments', comments_path(assignid) %>
  <% end%>
 
-<div style="display:table;">
-    <table style="margin:5px;" class='table' id='comment_table'>
+<div style="display:table;width:200px">
+    <table style="margin:5px;width:200px" class='table' id='comment_table-<%= assignid%>'>
       <thead>
         <tr>
           <th>Comments</th>
         </tr>
       </thead>
 	  <tbody id="comment-modal">
-<%# raise comm.inspect %>
-	    <% comm.last(2).each do |comment| %>
-	    	    		   
-	    	      <%#= raise v.last.content.inspect %>
 
-
-	      <%#= raise comm.inspect %>
 	      <tr>
-	         <%= render partial:'comments/table_row', locals: {comment: comment, assignment_id: assignid}%>
+	         <%= render partial:'comments/table_row', locals: { commentdisplay: all_comment.first(2), assignment_id: assignid}%>
 
 	      
 	        </tr>
-	    <% end %>
 	  </tbody>
 	</table>
 <% end %>
-
-<%= form_for(@com, remote: true, url: create_comment_ajax_url) do |f| %>
-
-	<div class="field" >
-	  	<%= f.label :comment_here %>:
-  		<%= f.text_field :content, :id => "com" %><br />
-
-  	</div>
-  	<div class="actions">
-		<%= submit_tag onSubmit="submitComment();"%>
-		    <%= hidden_field_tag 'assignment_id', assignid %> 
-		   <script type="text/javascript">
-		   </script>
-	</div>
-<% end %>
-
 
 <script>
   var submitComment = function(){

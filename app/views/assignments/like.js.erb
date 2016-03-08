@@ -1,0 +1,28 @@
+
+console.log("#{<%=@likecount%>}");
+console.log("#{<%=@unlikecount%>}");
+$("#like-<%=@assign_id%>").html("<%=@likecount%> ");
+$("#unlike-<%=@assign_id%>").html("<%=@unlikecount%>");
+
+switch(<%= @sta %>) {
+    case true:
+        likepic = "http://localhost:3000/assets/thumbs-up.png"
+        unlikepic = "http://localhost:3000/assets/empty_thumbs-down"
+        break;
+    case false:
+        likepic = "http://localhost:3000/assets/empty_thumbs-up"
+        unlikepic = "http://localhost:3000/assets/thumbs-down"
+        break;
+    default:
+        likepic = "http://localhost:3000/assets/empty_thumbs-up"
+        unlikepic = "http://localhost:3000/assets/empty_thumbs-down"
+}
+
+
+$("#likepic-<%=@assign_id%> a img")[0].src = likepic
+$("#unlikepic-<%=@assign_id%> a img")[0].src = unlikepic
+
+
+
+
+// escape_javascript

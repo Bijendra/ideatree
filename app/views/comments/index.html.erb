@@ -2,10 +2,10 @@
 
                     <% if user_signed_in? && current_user.id == @assignment.user_id %>
                     <div style="width:40px; float: right">
-                        <%= link_to image_tag("edit.png", :size => "15x15"),edit_assignment_path(assignment) %>
+                        <%= link_to image_tag("edit.png", :size => "15x15"),edit_assignment_path(@assignment) %>
 
                     
-                        <%= link_to image_tag("delete.png", :size => "15x15"),assignment, method: :delete, data: { confirm: 'Are you sure?' } %>
+                        <%= link_to image_tag("delete.png", :size => "15x15"),@assignment, method: :delete, data: { confirm: 'Are you sure?' } %>
                     </div>
                     <% end -%>
                <br>
