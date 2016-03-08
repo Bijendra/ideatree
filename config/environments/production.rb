@@ -34,6 +34,8 @@ Rails.application.configure do
   # Asset digests allow you to set far-future HTTP expiration dates on all assets,
   # yet still be able to expire them through the digest params.
   config.assets.digest = true
+  #Images are included by default only from app/assets
+  # config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif)
 
   # `config.assets.precompile` and `config.assets.version` have moved to config/initializers/assets.rb
 

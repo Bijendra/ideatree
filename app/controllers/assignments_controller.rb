@@ -4,7 +4,7 @@ class AssignmentsController < ApplicationController
   # GET /assignments
   # GET /assignments.json
   def index
-    @assignments = Assignment.all
+    @assignments = Assignment.all.sort_by(&:created_at) #change it to sort by published date. Show most recent on top
     @comments = Comment.all.group_by(&:assignment_id)
     @user = User.all
     @like_obj = Like.all
@@ -13,6 +13,9 @@ class AssignmentsController < ApplicationController
     @unlike_count = Like.where(status: false).group(:assignment_id).count
     @twocom = Comment.last(2)
     @com = Comment.new #hash 
+    @popular_view = @assignments[0..3] || []
+    @popular_list = @assignments[4..8] || []
+    render "idea_temp"
   end
 
   # GET /assignments/1
@@ -110,6 +113,14 @@ p @sta.class
     end  
   end
 
+  def search
+    #put the search criteria here and try to reuse or combine the index method
+    @assignments = Assignment.all
+    @comments = Comment.all.group_by(&:assignment_id)
+    @twocom = Comment.last(2)
+    @com = Comment.new #hash 
+    render "idea_temp"
+  end  
   # DELETE /assignments/1
   # DELETE /assignments/1.json
   def destroy
@@ -128,6 +139,8 @@ p @sta.class
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def assignment_params
+      p params
+      p "D"*100
       params.require(:assignment).permit(:description, :user_id, :category_id, :status, :avatar)
     end
 end

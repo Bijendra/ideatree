@@ -1,0 +1,13 @@
+<div class="login_account_detail" style="font-color:black">
+  <ul class="hmenu ">
+  	  <% if user_signed_in? %>
+        <% if current_user.avatar? %>
+          <%= image_tag current_user.avatar.url(:thumb), :size => "50x50" %>
+        <% end %>
+      <a href="/users/<%= current_user.id %>" class="btn btn-primary btn-lg active" role="button">
+    	Logged in as <strong><%=current_user.email%></strong></a>
+  	  <% end %>
+    <%= render 'devise/menu/registration_items' %>
+    <%= render 'devise/menu/login_items' %>
+  </ul>
+</div>

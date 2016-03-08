@@ -1,26 +1,34 @@
+
 Rails.application.routes.draw do
   ActiveAdmin.routes(self)
   get 'homes/index'
+  
+  resources :assignments do
+    member do
+        put "like", to: "assignments#like"
+        put "unlike", to: "assignments#unlike"
+    end
+  end
 
   resources :tags
   resources :categories
   resources :comments
   devise_for :users
   resources :users
-  root "homes#index"
+  root "assignments#index"
   resources :assignments
   get "/ideas" => "assignments#index"
   post "/create_comment_ajax" => "comments#create_comment_ajax"
   get "/comments" => "comments#index"
-get "/more_comments/:id" => "comments#more_comments", :as => "more_comments"
+
+  get "/more_comments/:id" => "comments#more_comments", :as => "more_comments"
+
+  get "/search" => "assignments#search"
 
 
-  resources :assignments do
-    member do
-        put "like", to: "assignments#like"
-        put "unlike", to: "assignments#unlike"
-    end
-end
+  # match ':controller(/:action(/:id))(.:format)'
+
+  
 
 #   devise_scope :user do
 #   authenticated :user do
@@ -91,4 +99,5 @@ end
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
+
 end
