@@ -6,12 +6,13 @@
 										<h2><a href="#"><%= post.title %></a></h2>
 										<p><%= post.quote %></p>
 									</div>
+
 									<div class="meta">
 										<time class="published" datetime="<%= post.created_at.strftime("%d-%m-%Y")%>"><%= post.created_at.strftime("%B %d, %Y") %></time>
-										<a href="#" class="author"><span class="name"><%= post.user.get_display_name %></span><img src="<%= post.user.avatar.url(:thumb) %>" alt="" /></a>
+										<a href="#" class="author"><span class="name"><%= post.user.get_display_name %></span><img src="<%= post.user.avatar.url(:medium) %>" alt="" /></a>
 									</div>
 								</header>
-								<a href="#" class="image featured"><img src="<%= post.avatar.url(:medium) %>" alt="" /></a>
+								<a href="#" class="image featured"><img src="<%= post.avatar.url(:original) %>" alt="" /></a>
 
 								<p><%= post.description[0..150] %></p>
 								<footer>
@@ -20,8 +21,46 @@
 									</ul>
 									<ul class="stats">
 										<li><a href="#">General</a></li>
-										<li><a href="#" class="icon fa-heart">28</a></li>
-										<li><a href="#" class="icon fa-comment">128</a></li>
+
+ 										<% if !@like_obj.where(assignment_id: post.id, user_id: current_user.id).blank? %> 
+                        					<% likepic,unlikepic = case @like_obj.where(assignment_id: post.id,user_id: current_user.id).first.status 
+                            					when true
+                                					["thumbs-up","empty_thumbs-down"]
+                            					when false
+                               						["empty_thumbs-up","thumbs-down"]
+                            					when nil
+                                					["empty_thumbs-up","empty_thumbs-down"]
+                            				end %>
+                        					<% like_count = @like_count[post.id.to_s].to_i
+                            				unlike_count = @unlike_count[post.id.to_s].to_i %>
+                  
+                    					<% else %>
+                        					<% like_count = 0
+                            				unlike_count = 0
+                            				likepic,unlikepic = ["empty_thumbs-up","empty_thumbs-down"] %>
+                    					<% end %>
+
+                    					<li class="like-count" id="like-<%= post.id %>">
+                    						<%= like_count %>  
+                    					</li>
+                    					<li id="likepic-<%= post.id %>">
+                    					<%= link_to image_tag(likepic), like_assignment_path(post,status: true),  class: 'vote', method: :put, remote: true %>
+                    					</li>
+
+                   						<li class="unlike-count" id="unlike-<%= post.id %>">
+                    						<%= unlike_count %>
+                    					</li>
+                    					<li id="unlikepic-<%= post.id %>">
+                    						<%= link_to image_tag(unlikepic), like_assignment_path(post,status: false), class: 'vote', method: :put , remote: true  %>
+                   						</li>
+
+										<!-- <li><a href="#" class="icon fa-heart">28</a></li> -->
+										<% if !@comments[post.id].blank? %> 
+										<li><a href="#" > <%= @comments[post.id].count %></a>
+											<a href="#" > <%= link_to image_tag("comment.png"), comments_path(post.id)  %> </a>
+										</li>
+										<% end %>
+
 									</ul>
 								</footer>
 							</article>
@@ -63,9 +102,9 @@
 													<h3><a href="#"><%= post.title %></a></h3>
 													<!-- Update created_at with published at -->
 													<time class="published" datetime="<%= post.created_at.strftime("%d-%m-%Y")%>"><%= post.created_at.strftime("%B %d, %Y") %></time>
-													<a href="#" class="author"><img src="<%= post.avatar.url(:medium) %>" alt="" /></a>
+													<a href="#" class="author"><img src="<%= post.avatar.url(:original) %>" alt="" /></a>
 												</header>
-												<a href="#" class="image"><img src="<%= post.avatar.url(:thumb) %>" alt="" /></a>
+												<a href="#" class="image"><img src="<%= post.avatar.url(:medium) %>" alt="" /></a>
 											</article>
 										<% end %>
 
@@ -82,7 +121,7 @@
 												<h3><a href="#"><%= post.title %></a></h3>
 												<time class="published" datetime="2015-10-20"><%= post.created_at.strftime("%B %d, %Y") %></time>
 											</header>
-											<a href="#" class="image"><img src="<%= post.avatar.url(:thumb) %>" alt="" /></a>
+											<a href="#" class="image"><img src="<%= post.avatar.url(:medium) %>" alt="" /></a>
 										</article>
 									</li>
 								  <% end %>	
@@ -94,10 +133,4 @@
 
 
 					</section>
-
-			
-
 		<!-- Scripts -->
-			
-
-	
