@@ -25,6 +25,8 @@ Rails.application.routes.draw do
 
   get "/search" => "assignments#search"
 
+  get "/fresh_page_view/:id" => "comments#fresh_page_view", :as => "fresh_page_view"
+
 
   # match ':controller(/:action(/:id))(.:format)'
 

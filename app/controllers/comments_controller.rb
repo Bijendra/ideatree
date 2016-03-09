@@ -11,8 +11,21 @@ class CommentsController < ApplicationController
     @all_assignment = Assignment.all
     @assignment = Assignment.find(params[:format])
     @comment = Comment.new
+    render "fresh_page"
   end
-
+  
+  def fresh_page_view
+    # params[:id] as assignment id
+    @assignment = Assignment.where(assignment_id: params[:id]).first
+    @comments = Comment.where(assignment_id: @assignment.id).all
+    
+    @like_obj = Like.where(assignment_id: @assignment.id)
+    @like_count = Like.where(status: true).where(assignment_id: @assignment.id).count
+    p @like_obj
+    @unlike_count = Like.where(status: false).where(assignment_id: @assignment.id).count
+    #@twocom = Comment.last(2)
+    @com = Comment.new #hash 
+  end  
   # GET /comments/1
   # GET /comments/1.json
   def show

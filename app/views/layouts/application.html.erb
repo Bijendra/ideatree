@@ -3,9 +3,9 @@
 <head>
   <title>Idea Tree</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="stylesheet" href="assets/css/main.css" />
+  <link rel="stylesheet" href="/assets/css/main.css" />
   <link rel="shortcut icon" href="/assets/icon.ico" />
-  <%#= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%#= stylesheet_link_tag    'application', media: 'all' %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
@@ -16,7 +16,7 @@
     <% if user_signed_in? %>
       <%= render :partial => "layouts/nav_header" %>
     <% else %>
-      <%= render :partial => "non_login_nav" %>
+      <%= render :partial => "layouts/non_login_nav" %>
     <% end %>
   <%= yield %>
   </div>
@@ -25,8 +25,8 @@
 </body>
 </html>
 
-<script src="assets/js/jquery.min.js"></script>
-<script src="assets/js/skel.min.js"></script>
-<script src="assets/js/util.js"></script>
+<script src="/assets/js/jquery.min.js"></script>
+<script src="/assets/js/skel.min.js"></script>
+<script src="/assets/js/util.js"></script>
 <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
-<script src="assets/js/main.js"></script>
+<script src="/assets/js/main.js"></script>

@@ -1,5 +1,5 @@
-					<div id="main">
-					    <% @assignments.each do |post| %>
+<div id="main">
+					    <% post = @assignment %>
 							<article class="post">
 								<header>
 									<div class="title">
@@ -14,15 +14,13 @@
 								</header>
 								<a href="#" class="image featured"><img src="<%= post.avatar.url(:original) %>" alt="" /></a>
 
-								<p><%= post.description[0..150] %></p>
+								<p><%= post.description %></p>
 								<footer>
-									<ul class="actions">
-										<li><a href="/assignments/<%=post.id%>" class="button big">Continue Reading</a></li>
-									</ul>
+									
 									<ul class="stats">
-										<li><a href="#">General</a></li>
+										<li><a href="#">Place tags here</a></li>
 
- 										<% if !@like_obj.where(assignment_id: post.id, user_id: current_user.id).blank? %> 
+ 										<% if @like_obj %> 
                         					<% likepic,unlikepic = case @like_obj.where(assignment_id: post.id,user_id: current_user.id).first.status 
                             					when true
                                 					["thumbs-up","empty_thumbs-down"]
@@ -31,8 +29,8 @@
                             					when nil
                                 					["empty_thumbs-up","empty_thumbs-down"]
                             				end %>
-                        					<% like_count = @like_count[post.id.to_s].to_i
-                            				unlike_count = @unlike_count[post.id.to_s].to_i %>
+                        					<% like_count = @like_count
+                            				unlike_count = @unlike_count %>
                   
                     					<% else %>
                         					<% like_count = 0
@@ -55,16 +53,15 @@
                    						</li>
 
 										<!-- <li><a href="#" class="icon fa-heart">28</a></li> -->
-										<% if !@comments[post.id].blank? %> 
+										<% if false #@comments[post.id].blank? %> 
 										<li><a href="#" > <%= @comments[post.id].count %></a>
-											<a href="#" > <%= link_to image_tag("comment.png"), fresh_page_view_path(post.id)  %> </a>
+											<a href="#" > <%= link_to image_tag("comment.png"), comments_path(post.id)  %> </a>
 										</li>
 										<% end %>
 
 									</ul>
 								</footer>
 							</article>
-					    <% end %>		
 
 						<!-- Pagination -->
 							<ul class="actions pagination">
@@ -73,64 +70,3 @@
 							</ul>
 
 					</div>
-
-				<!-- Sidebar -->
-					<section id="sidebar">
-
-						<!-- Intro -->
-							<section id="intro">
-								<a href="#" class="logo"><img src="/assets/logo.jpg" alt="" /></a>
-								<header>
-									<h2>Ideatree</h2>
-									<p>The place where ideas collide and shape up</a></p>
-								</header>
-							</section>
-
-						<!-- Mini Posts -->
-							<section>
-								<div class="mini-posts">
-
-										<article class="mini-post">
-											<header>
-												<h2><a href="/search?tag=popular">Popular posts</a></h2>
-										    </header>
-										</article>
-
-                                        <% @popular_view.each do |post| %>
-											<article class="mini-post">
-												<header>
-													<h3><a href="#"><%= post.title %></a></h3>
-													<!-- Update created_at with published at -->
-													<time class="published" datetime="<%= post.created_at.strftime("%d-%m-%Y")%>"><%= post.created_at.strftime("%B %d, %Y") %></time>
-													<a href="#" class="author"><img src="<%= post.avatar.url(:original) %>" alt="" /></a>
-												</header>
-												<a href="#" class="image"><img src="<%= post.avatar.url(:medium) %>" alt="" /></a>
-											</article>
-										<% end %>
-
-								</div>
-							</section>
-
-						<!-- Posts List -->
-							<section>
-								<ul class="posts">
-								  <% @popular_list.each do |post| %>
-									<li>
-										<article>
-											<header>
-												<h3><a href="#"><%= post.title %></a></h3>
-												<time class="published" datetime="2015-10-20"><%= post.created_at.strftime("%B %d, %Y") %></time>
-											</header>
-											<a href="#" class="image"><img src="<%= post.avatar.url(:medium) %>" alt="" /></a>
-										</article>
-									</li>
-								  <% end %>	
-								</ul>
-							</section>
-
-                            <%= render :partial => "layouts/about" %>
-							<%= render :partial => "layouts/footer" %>
-
-
-					</section>
-		<!-- Scripts -->
