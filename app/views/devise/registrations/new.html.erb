@@ -1,4 +1,6 @@
-<div class="main">
+<!--main signup form currently in use -->
+
+<div id="main">
     <div class="border-form-div">
         <h2>Sign up</h2>
 
@@ -13,11 +15,9 @@
 
     <div class="form-action">
         <%= f.submit "Sign up", :class=>'btn btn-warning' %>
-        <%= link_to "Log in", new_session_path(resource_name), :class => 'btn btn-primary'%> 
+        <%=  link_to "Log in", new_session_path(resource_name), :class => 'btn btn-primary'%> 
         <% end %>
     </div>
 
     </div>
 </div>
-
-

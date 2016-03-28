@@ -2,26 +2,35 @@
 					    <% @assignments.each do |post| %>
 							<article class="post">
 								<header>
-									<div class="title">
-										<h2><a href="#"><%= post.title %></a></h2>
+									<div class="title" style="padding-top: inherit; margin-top: 10px; margin-left: 20px; margin-bottom: 0px; padding: inherit;">
+										<h2><a href="#"> <%= post.title %> </a></h2>
 										<p><%= post.quote %></p>
 									</div>
 
 									<div class="meta">
 										<time class="published" datetime="<%= post.created_at.strftime("%d-%m-%Y")%>"><%= post.created_at.strftime("%B %d, %Y") %></time>
-										<a href="#" class="author"><span class="name"><%= post.user.get_display_name %></span><img src="<%= post.user.avatar.url(:medium) %>" alt="" /></a>
+										<a href="#" class="author"><h2 class="name"><%= post.user.name %></h2><img src="<%= post.user.avatar.url(:medium) %>" alt=""  /></a>
 									</div>
 								</header>
-								<a href="#" class="image featured"><img src="<%= post.avatar.url(:original) %>" alt="" /></a>
+								<% if !post.avatar.blank? %>
+								<div style="margin-left:100px;margin-right:100px; overflow:hidden;" >
+								<a href="#" class="image featured"><img src="<%= post.avatar.url(:original) %>" alt="" width="600px" height="400px"/> </a>
+								</div>
+								<% end %>
+								<p><%= post.description[0..300] %>.....</p>
 
-								<p><%= post.description[0..150] %></p>
+								
+								<a href=<%= post.document(:original) %>>pdf file</a>
+
+
+
+
 								<footer>
 									<ul class="actions">
-										<li><a href="/assignments/<%=post.id%>" class="button big">Continue Reading</a></li>
+										<li ><a href="fresh_page_view/<%=post.id%>" class="button big" style="color:red">Continue Reading</a></li>
 									</ul>
 									<ul class="stats">
-										<li><a href="#">General</a></li>
-
+										<li> <%= post.category_id %></li>
  										<% if !@like_obj.where(assignment_id: post.id, user_id: current_user.id).blank? %> 
                         					<% likepic,unlikepic = case @like_obj.where(assignment_id: post.id,user_id: current_user.id).first.status 
                             					when true
@@ -55,18 +64,25 @@
                    						</li>
 
 										<!-- <li><a href="#" class="icon fa-heart">28</a></li> -->
-										<% if !@comments[post.id].blank? %> 
-										<li><a href="#" > <%= @comments[post.id].count %></a>
+										<% if !@comments[post.id].blank? 
+												comment_count = @comments[post.id].count
+											else
+												comment_count = 0;
+											end %>
+
+										<li><a href="#comment_table" > <%= comment_count %></a>
 											<%= link_to image_tag("comment.png"), fresh_page_view_path(post.id)  %>
 										</li>
-										<% end %>
+										
 
 									</ul>
 								</footer>
 								<div>
+
 									<% if @comments[post.id] !=nil %>
-    									<% all_comment = @comments[post.id] %>
-   										<% all_comment =  all_comment.reverse.map(&:content) %>
+    									<% comments_detail = @comments[post.id] %>
+    									<% all_comment = {} %>
+   										<% comments_detail.map {|u| all_comment[u.id] = u.content} %>
                      				<%= render partial: 'comments/assgn_comment', locals: {all_comment: all_comment ,assignid: post.id} %>
       								<% end %>
 					                <%= render partial: 'comments/new_comment_form', locals: { assignid: post.id} %>
@@ -99,8 +115,8 @@
 								<div class="mini-posts">
 
 										<article class="mini-post">
-											<header>
-												<h2><a href="/search?tag=popular">Popular posts</a></h2>
+											<header >
+												<h2 style="back-ground-color: #ff0000;"><a href="/search?tag=popular">Popular posts</a></h2>
 										    </header>
 										</article>
 
@@ -110,7 +126,7 @@
 													<h3><a href="#"><%= post.title %></a></h3>
 													<!-- Update created_at with published at -->
 													<time class="published" datetime="<%= post.created_at.strftime("%d-%m-%Y")%>"><%= post.created_at.strftime("%B %d, %Y") %></time>
-													<a href="#" class="author"><img src="<%= post.avatar.url(:original) %>" alt="" /></a>
+													<a href="#" class="author"><img src="<%= post.user.avatar.url(:original) %>" alt="" /></a>
 												</header>
 												<a href="#" class="image"><img src="<%= post.avatar.url(:medium) %>" alt="" /></a>
 											</article>

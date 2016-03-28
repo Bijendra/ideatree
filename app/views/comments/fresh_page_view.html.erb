@@ -12,15 +12,18 @@
 										<a href="#" class="author"><span class="name"><%= post.user.get_display_name %></span><img src="<%= post.user.avatar.url(:medium) %>" alt="" /></a>
 									</div>
 								</header>
-								<a href="#" class="image featured"><img src="<%= post.avatar.url(:original) %>" alt="" /></a>
-
+                <div style="width: 100%; height: 100%; overflow: hidden;">
+                <div style="float:left; overflow:hidden;" >
+								<a href="#" class="image featured"><img src="<%= post.avatar.url(:original) %>" alt="" width="600px" height="400px" /></a>
+                </div>
 								<p><%= post.description %></p>
+                </div>
 								<footer>
 									<div>
 									<ul class="stats">
-										<li><a href="#">Place tags here</a></li>
+										<li><%= post.category_id %></li>
 
- 										<% if @like_obj %> 
+ 										<% if !@like_obj.blank? %> 
                         					<% likepic,unlikepic = case @like_obj.where(assignment_id: post.id,user_id: current_user.id).first.status 
                             					when true
                                 					["thumbs-up","empty_thumbs-down"]
@@ -58,20 +61,25 @@
 										<br>
 										<div>
 										<% if !@comments.blank? %>
-										<table style="margin:5px;" class='table' id='comment_table'>
+										<table style="margin:5px" class='table' id='comment_table'>
     									<thead>
       									<tr><th>Comments</th></tr>
     									</thead>
     									<tbody id="comment-modal">
       									<% @comments.each do |comment| %>
-							           <tr>
-											<td> 
-												<div style="background:#f1f1f1; border-style: outset; box-shadow: 0 2px 4px 0 rgba(0,0,0,0),0 2px 10px 0 rgba(0,0,0,0.18) !important;" >  
+							           <tr >
+                         <td width="20%">
+                         <%= comment.user.name %>
+                         </td>
+                         </tr>
+                         <tr>
+											<td width="60%"> 
+												<div style="background:#c1c1c1; border-style: outset; box-shadow: 0 2px 4px 0 rgba(0,0,0,0),0 2px 10px 0 rgba(0,0,0,0.18) !important;" >  
 												<p><%= comment.content %></p>
 											</td>
 
           								<% if current_user.id.to_s == comment.user_id.to_s %>
-          									<td><%= link_to 'Destroy', comment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          									<td width="30%"><%= link_to 'Destroy', comment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
           								<% end %> 
 										</div>
          								</tr>

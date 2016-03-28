@@ -10,6 +10,9 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
+    @like_obj = Like.all
+    @like_count = Like.where(status: true).group(:assignment_id).count
+    @unlike_count = Like.where(status: false).group(:assignment_id).count
   end
 
   # GET /users/new
@@ -61,9 +64,19 @@ class UsersController < ApplicationController
     end
   end
 
+  def likedby
+    @like_obj = Like.all
+    p @like_obj
+    p "hiii"*20
+    @like_count = Like.where(status: true).group(:assignment_id).count
+    @unlike_count = Like.where(status: false).group(:assignment_id).count
+       
+end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
+      p params[:id]
       @user = User.find(params[:id])
     end
 

@@ -14,8 +14,9 @@ class User < ActiveRecord::Base
   attr_accessor :get_display_name
 
   def get_display_name
-    name = self.first_name 
+    name = self.name 
+    name = self.first_name if name.blank?
     name = self.last_name if name.blank?
-    name = self.email.gsub("a").first if name.blank?
+    name = self.email.gsub("@a").first if name.blank?
   end 	
 end

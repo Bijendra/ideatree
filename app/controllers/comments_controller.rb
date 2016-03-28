@@ -7,11 +7,13 @@ class CommentsController < ApplicationController
   def index
     p params
     p "S"*100
+    @user = User.all
     @comments = Comment.all
+    @all_comments = Comment.all
     @all_assignment = Assignment.all
     @assignment = Assignment.find(params[:format])
     @comment = Comment.new
-    render "fresh_page"
+    render "fresh_page_view"
   end
   
   def fresh_page_view

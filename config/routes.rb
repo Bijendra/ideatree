@@ -13,8 +13,7 @@ Rails.application.routes.draw do
   resources :tags
   resources :categories
   resources :comments
-  devise_for :users
-  resources :users
+  
   root "assignments#index"
   resources :assignments
   get "/ideas" => "assignments#index"
@@ -26,6 +25,9 @@ Rails.application.routes.draw do
   get "/search" => "assignments#search"
 
   get "/fresh_page_view/:id" => "comments#fresh_page_view", :as => "fresh_page_view"
+  get "/likedby" => "users#likedby" , :as => "likedby"
+  devise_for :users
+  resources :users
 
 
   # match ':controller(/:action(/:id))(.:format)'

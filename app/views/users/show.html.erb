@@ -1,5 +1,7 @@
-<p id="notice"><%= notice %></p>
+<div id="main" >
 
+<%#= render :partial => "shared/home_nav_bar" %>
+<h2>Listing Ideas submitted by User <%= @user.name %> </h2>
 <p>
   <strong>Name:</strong>
   <%= @user.name %>
@@ -14,9 +16,6 @@
   <strong>Phone:</strong>
   <%= @user.phone %>
 </p>
-
-<h1>Listing Ideas for User <%= @user.name %></h1>
-<%#= render :partial => "shared/home_nav_bar" %>
 <table>
   <thead>
     <tr>
@@ -38,11 +37,37 @@
         <td><%= link_to 'Show', assignment %></td>
         <td><%= link_to 'Edit', edit_assignment_path(assignment) %></td>
         <td><%= link_to 'Destroy', assignment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <%#= raise @like_obj.inspect %>
+        <% if !@like_obj.where(assignment_id: assignment.id, user_id: current_user.id).blank? %> 
+
+                                  <% likepic,unlikepic = case @like_obj.where(assignment_id: assignment.id,user_id: current_user.id).first.status 
+                                      when true
+                                          ["thumbs-up","empty_thumbs-down"]
+                                      when false
+                                          ["empty_thumbs-up","thumbs-down"]
+                                      when nil
+                                          ["empty_thumbs-up","empty_thumbs-down"]
+                                    end %>
+                                  <% like_count = @like_count[assignment.id.to_s].to_i
+                                    unlike_count = @unlike_count[assignment.id.to_s].to_i %>
+                              <% else %>
+                                  <% like_count = 0
+                                    unlike_count = 0
+                                    likepic,unlikepic = ["empty_thumbs-up","empty_thumbs-down"] %>
+                              <% end %>
+        <td> <%= @like_count[assignment.id.to_s].to_i %></td>
+        <td><%= link_to image_tag(likepic), like_assignment_path(assignment,status: true),  class: 'vote', method: :put, remote: true %>
+        </td>
+        <td> <%= link_to image_tag(likepic), likedby_path, :remote => true, :method => :get %>
+        </td>
+        <td><%= unlike_count %></td>
+        <td><%= link_to image_tag(unlikepic), like_assignment_path(assignment,status: false), class: 'vote', method: :put , remote: true  %>
+        </td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
-
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>
+
+</div>

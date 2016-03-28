@@ -1,41 +1,21 @@
-<% if all_comment != nil %>
-<% if all_comment.count > 2 %>
+<%# if all_comment != nil %>
+<%# if all_comment.count > 2 %>
 <%#= link_to "MORE", more_comments_path(assignid),method: :get, remote: true%>
 
-<%= link_to 'More Comments', fresh_page_view_path(assignid) %>
- <% end%>
+<%#= link_to 'More Comments', fresh_page_view_path(assignid) %>
+ <%# end%>
 
-<div>
+ <div>
     <table id='comment_table-<%= assignid%>'>
-      <thead>
-        <tr>
-          <th>Comments</th>
-        </tr>
-      </thead>
+     
 	  <tbody id="comment-modal">
 
 	      <tr>
-	         <%= render partial:'comments/table_row', locals: { commentdisplay: all_comment.first(2), assignment_id: assignid}%>
-
+            
+	         <%#= render partial:'comments/table_row', locals: { commentdisplay: all_comment.first(2), assignment_id: assignid}%>
+          
 	      
 	        </tr>
 	  </tbody>
 	</table>
-<% end %>
-
-<script>
-  var submitComment = function(){
-      $.ajax(
-      	url: "/create_comment_ajax",
-      	method: post,
-      	//data: 1,
-    	data: {content: content, assignment: assign},
-		success: function displayBackComment(){
-           $("#comment-modal").append("content");
-           $("#comment-modal").modal("content");
-
-    	 }
-     
-  	 )};
-</script>
-
+<%# end %>

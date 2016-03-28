@@ -4,7 +4,7 @@ class AssignmentsController < ApplicationController
   # GET /assignments
   # GET /assignments.json
   def index
-    @assignments = Assignment.all.sort_by(&:created_at) #change it to sort by published date. Show most recent on top
+    @assignments = Assignment.all.order(created_at: :desc) #change it to sort by published date. Show most recent on top
     @comments = Comment.all.group_by(&:assignment_id)
     @user = User.all
     @like_obj = Like.all
@@ -115,10 +115,20 @@ p @sta.class
 
   def search
     #put the search criteria here and try to reuse or combine the index method
-    @assignments = Assignment.all
+    @assignments = Assignment.where("description LIKE ?","%#{params[:query]}%").all.order(created_at: :desc)
+    #@comments = Comment.all.group_by(&:assignment_id)
+    #@twocom = Comment.last(2)
+    #@com = Comment.new #hash
     @comments = Comment.all.group_by(&:assignment_id)
+    @user = User.all
+    @like_obj = Like.all
+    @like_count = Like.where(status: true).group(:assignment_id).count
+    p @like_obj
+    @unlike_count = Like.where(status: false).group(:assignment_id).count
     @twocom = Comment.last(2)
-    @com = Comment.new #hash 
+    @com = Comment.new #hash
+    @popular_view = @assignments[0..3] || []
+    @popular_list = @assignments[4..8] || [] 
     render "idea_temp"
   end  
   # DELETE /assignments/1
@@ -141,6 +151,6 @@ p @sta.class
     def assignment_params
       p params
       p "D"*100
-      params.require(:assignment).permit(:description, :user_id, :category_id, :status, :avatar)
+      params.require(:assignment).permit(:description, :user_id, :category_id, :status, :avatar, :title, :quote, :document)
     end
 end

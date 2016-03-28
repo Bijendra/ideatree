@@ -1,9 +1,15 @@
+<div id="main" >
 <p id="notice"><%= notice %></p>
 
 <p>
   <strong>Description:</strong>
   <%= @assignment.description %>
 </p>
+
+<p>
+  <img src="<%= @assignment.avatar.url(:medium) %>" alt="" />
+</p>
+
 
 <p>
   <strong>User:</strong>
@@ -29,3 +35,4 @@
 
 	
 </p>
+</div>

@@ -1,10 +1,11 @@
 <header id="header">
-	<h1><a href="#">Ideatree</a></h1>
+	<h1><a href="/assignments">Ideatree</a></h1>
 	<nav class="links">
 		<ul>
 			<li><a href="/assignments">Browse</a></li>
 			<li><a href="/assignments/new">Submit</a></li>
 			<li><a href="/users/<%= current_user.id %>">Contributions</a></li>
+
 		</ul>
 	</nav>
 	<nav class="main">
@@ -15,16 +16,15 @@
 					<input type="text" name="query" placeholder="Search" />
 				</form>
 			</li>
-			
-			<li class="user_detail">
+			 <li class="user_detail"> <a href="/users/<%= current_user.id %>" class="btn btn-primary btn-lg active" role="button" style="width:100%;">
+    	        <strong style="float:left" ><%= current_user.name %></strong>
+    	      </a></li>
+			<li >
 				<%#= render :partial => "layouts/nav_user_detail" %>
-              <%= image_tag current_user.avatar.url(:thumb), :size => "50x50" %>
-              <a href="/users/<%= current_user.id %>" class="btn btn-primary btn-lg active" role="button">
-    	        <strong><%= current_user.get_display_name %></strong>
-    	      </a>
+              <%= image_tag current_user.avatar.url(:thumb), :size => "50x50" %></li>
+           
     <%#= render 'devise/menu/registration_items' %>
     <%#= render 'devise/menu/login_items' %>
-			</li>
 		</ul>
 	</nav>
 </header>
