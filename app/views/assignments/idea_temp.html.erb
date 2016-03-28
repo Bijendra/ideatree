@@ -57,12 +57,20 @@
 										<!-- <li><a href="#" class="icon fa-heart">28</a></li> -->
 										<% if !@comments[post.id].blank? %> 
 										<li><a href="#" > <%= @comments[post.id].count %></a>
-											<a href="#" > <%= link_to image_tag("comment.png"), fresh_page_view_path(post.id)  %> </a>
+											<%= link_to image_tag("comment.png"), fresh_page_view_path(post.id)  %>
 										</li>
 										<% end %>
 
 									</ul>
 								</footer>
+								<div>
+									<% if @comments[post.id] !=nil %>
+    									<% all_comment = @comments[post.id] %>
+   										<% all_comment =  all_comment.reverse.map(&:content) %>
+                     				<%= render partial: 'comments/assgn_comment', locals: {all_comment: all_comment ,assignid: post.id} %>
+      								<% end %>
+					                <%= render partial: 'comments/new_comment_form', locals: { assignid: post.id} %>
+					            </div>
 							</article>
 					    <% end %>		
 

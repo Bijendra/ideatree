@@ -11,22 +11,46 @@
     </div>
   <% end %>
 
+    
   <div class="field">
-    <%= f.label :description %><br>
+    <%= f.label :title %>
+    <%= f.text_area :title %>
+  </div> <br>
+
+  <div class="field">
+    <%= f.label :quote %>
+    <%= f.text_area :quote %>
+  </div> <br>
+
+  <div class="field">
+    <%= f.label :description %>
     <%= f.text_area :description %>
-  </div>
-  
-  <div class="field">
-    <%= f.label :category_id %><br>
-    <%= f.select :category_id, [['Technology'], ['Hospitality'], ['Education'], ['Sports']]  %>
-  </div>
-  <div class="field">
-    <%= f.label :status %>(Make Private)<br>
-    <%= f.check_box :status %>
-  </div>
-  <div class="field">
-    <%= f.input :avatar, as: :file %>
-  </div>
+  </div> <br>
+
+  <table>
+  <tr>
+  <td>
+    <div class="field">
+      <%= f.label :category_id %>
+      <%= f.select :category_id, [['Technology'], ['Hospitality'], ['Education'], ['Sports']]  %>
+    </div>
+  </td>
+
+  <td>
+    <div class="field">
+      <%= f.label :status %>(Make Private)
+      <%= f.check_box :status %>
+    </div>
+  </td> 
+  <td>
+    <div class="field">
+      <%= f.input :avatar, as: :file %>
+    </div>
+  </td>
+  </tr>
+  </table>
+  <br>
+
   <div class="actions">
     <%= f.submit %>
   </div>

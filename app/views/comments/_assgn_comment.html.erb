@@ -1,12 +1,12 @@
 <% if all_comment != nil %>
 <% if all_comment.count > 2 %>
-<%= link_to "MORE", more_comments_path(assignid),method: :get, remote: true%>
+<%#= link_to "MORE", more_comments_path(assignid),method: :get, remote: true%>
 
-<%= link_to 'More Comments', comments_path(assignid) %>
+<%= link_to 'More Comments', fresh_page_view_path(assignid) %>
  <% end%>
 
-<div style="display:table;width:200px">
-    <table style="margin:5px;width:200px" class='table' id='comment_table-<%= assignid%>'>
+<div>
+    <table id='comment_table-<%= assignid%>'>
       <thead>
         <tr>
           <th>Comments</th>

@@ -16,7 +16,7 @@ class CommentsController < ApplicationController
   
   def fresh_page_view
     # params[:id] as assignment id
-    @assignment = Assignment.where(assignment_id: params[:id]).first
+    @assignment = Assignment.where(id: params[:id]).first
     @comments = Comment.where(assignment_id: @assignment.id).all
     
     @like_obj = Like.where(assignment_id: @assignment.id)
