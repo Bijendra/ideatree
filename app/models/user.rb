@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
   
   has_many :assignments      
   has_many :comments
+  has_many :likes
   acts_as_paranoid
 
   attr_accessor :get_display_name

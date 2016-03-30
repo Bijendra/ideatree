@@ -65,11 +65,16 @@ class UsersController < ApplicationController
   end
 
   def likedby
-    @like_obj = Like.all
+    p params[:id]
+    @assign_id =  params[:id]
+    @like_obj = Like.all.where(assignment_id: params[:id])
     p @like_obj
     p "hiii"*20
-    @like_count = Like.where(status: true).group(:assignment_id).count
-    @unlike_count = Like.where(status: false).group(:assignment_id).count
+    @liked_by = User.where(id: @like_obj.where(status: true).map(&:user_id)).map(&:name)
+    @unliked_by = User.where(id: @like_obj.where(status: false).map(&:user_id)).map(&:name)
+    @liked_by = "<ul><li>dsdss</li><li>dsdss11</li><li>dsdssewe</li></ul>"
+    p @liked_by
+    p @unliked_by
        
 end
 

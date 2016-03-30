@@ -19,9 +19,9 @@
 								<% end %>
 								<p><%= post.description[0..300] %>.....</p>
 
-								
-								<a href=<%= post.document(:original) %>>pdf file</a>
-
+								<% if !post.document.blank? %>
+								<a href=<%= post.document(:original) %>><%= image_tag("Iconpdf.png") %></a>
+								<% end %>
 
 
 
