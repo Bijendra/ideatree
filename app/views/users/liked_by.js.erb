@@ -1,4 +1,1 @@
-alert("yes");
-console.log("fdfdd");
-
-$(".first34").html("<%= render partial: 'liked_by', locals: {liked_by: @liked_by} %>")
+alert("#{<%=@liked_by%>}");

@@ -1,0 +1,5 @@
+ <% @user.each do |user| %>
+
+<a href="#" class="author"><h2 class="name"><%= user.name %></h2><img src="<%= user.avatar.url(:medium) %>" alt=""  /></a>
+
+<% end %>

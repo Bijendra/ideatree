@@ -5,6 +5,7 @@ class AssignmentsController < ApplicationController
   # GET /assignments.json
   def index
     @assignments = Assignment.all.order(created_at: :desc) #change it to sort by published date. Show most recent on top
+    @popular_assignment = @assignments
     @comments = Comment.all.group_by(&:assignment_id)
     @user = User.all
     @like_obj = Like.all
@@ -12,11 +13,38 @@ class AssignmentsController < ApplicationController
     p @like_obj
     @unlike_count = Like.where(status: false).group(:assignment_id).count
     @twocom = Comment.last(2)
-    @com = Comment.new #hash 
-    @popular_view = @assignments[0..3] || []
-    @popular_list = @assignments[4..8] || []
+    @com = Comment.new #hash
+    popular = Hash.new
+
+
+    likes= Like.all.where(status: true).group_by(&:assignment_id)
+    popular = Hash.new
+    for i in @assignments
+      p i.id
+      p @comments[i.id]
+      p "$"*100
+      if !@comments[i.id].blank?
+        popular[i.id] = (@comments[i.id].count * 5) 
+      end 
+
+      if !likes[i.id.to_s].blank?
+        popular[i.id] += likes[i.id.to_s].count
+      end
+    end
+    @popular_view = popular.sort_by{|_key, value| -value}.to_h
+        p @popular_view
+
+    # for i in @assignments
+    #   popular[i.id] = (Comment.where(Assignment_id: i.id).all.count * 5) + Like.where(Assignment_id: i.id,status: true).count
+    # end
+    # @popular_view = popular.sort_by{|_key, value| -value}.to_h
+    # p @popular_view
+    # p "s"*100
+    # @popular_view = @assignments[0..3] || []
+     @popular_list = @assignments[4..8] || []
     render "idea_temp"
   end
+
 
   # GET /assignments/1
   # GET /assignments/1.json
@@ -115,10 +143,11 @@ p @sta.class
 
   def search
     #put the search criteria here and try to reuse or combine the index method
-    @assignments = Assignment.where("description LIKE ?","%#{params[:query]}%").all.order(created_at: :desc)
+    # @assignments = Assignment.where("description LIKE ?","%#{params[:query]}%").all.order(created_at: :desc)
     #@comments = Comment.all.group_by(&:assignment_id)
     #@twocom = Comment.last(2)
     #@com = Comment.new #hash
+    @popular_assignment = Assignment.all
     @comments = Comment.all.group_by(&:assignment_id)
     @user = User.all
     @like_obj = Like.all
@@ -127,7 +156,21 @@ p @sta.class
     @unlike_count = Like.where(status: false).group(:assignment_id).count
     @twocom = Comment.last(2)
     @com = Comment.new #hash
-    @popular_view = @assignments[0..3] || []
+     @assignments = Assignment.find_by_sql("SELECT * FROM assignments
+      WHERE title LIKE '%idea%' OR description LIKE '%idea%'
+      ORDER BY CASE
+        WHEN (title LIKE '%idea%' AND description LIKE '%idea%') THEN 1
+        WHEN (title LIKE '%idea%' AND description NOT LIKE '%idea%') THEN 2
+        ELSE 3
+        END, title
+    LIMIT 0, 6; ")
+     popular = Hash.new
+     for i in @assignments
+      popular[i.id] = (Comment.where(Assignment_id: i.id).all.count * 5) + Like.where(Assignment_id: i.id,status: true).count
+    end
+    @popular_view = popular.sort_by{|_key, value| -value}.to_h
+    p @popular_view
+    p "s"*100
     @popular_list = @assignments[4..8] || [] 
     render "idea_temp"
   end  

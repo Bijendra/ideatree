@@ -17,15 +17,19 @@ class CommentsController < ApplicationController
   end
   
   def fresh_page_view
-    # params[:id] as assignment id
+    if params["fresh"].present?
+      list = @assignment = Assignment.where(status: true).map(&:id)
+    end 
+    @next_page = Assignment.all.map(&:id).index(params[:id].to_i)
+    @next_page = Assignment.all.map(&:id)[@next_page-1]
+    @previous_page = Assignment.all.map(&:id).index(params[:id].to_i)
+    @previous_page = Assignment.all.map(&:id)[@previous_page+1]
     @assignment = Assignment.where(id: params[:id]).first
     @comments = Comment.where(assignment_id: @assignment.id).all
-    
     @like_obj = Like.where(assignment_id: @assignment.id)
     @like_count = Like.where(status: true).where(assignment_id: @assignment.id).count
     p @like_obj
     @unlike_count = Like.where(status: false).where(assignment_id: @assignment.id).count
-    #@twocom = Comment.last(2)
     @com = Comment.new #hash 
   end  
   # GET /comments/1

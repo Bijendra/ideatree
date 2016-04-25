@@ -11,7 +11,7 @@
 	<nav class="main">
 		<ul>
 			<li class="search">
-				<a class="fa-search" href="#search">Search</a>
+				<a class="fa-search" href="#search"><%= image_tag("search.png")%>Search</a>
 				<form id="search" method="get" action="/search">
 					<input type="text" name="query" placeholder="Search" />
 				</form>
@@ -24,7 +24,7 @@
               <%= image_tag current_user.avatar.url(:thumb), :size => "50x50" %></li>
            
     <%#= render 'devise/menu/registration_items' %>
-    <%#= render 'devise/menu/login_items' %>
+    <%= render 'devise/menu/login_items' %>
 		</ul>
 	</nav>
 </header>

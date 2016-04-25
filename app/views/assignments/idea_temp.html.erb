@@ -27,7 +27,8 @@
 
 								<footer>
 									<ul class="actions">
-										<li ><a href="fresh_page_view/<%=post.id%>" class="button big" style="color:red">Continue Reading</a></li>
+										<li ><a href="fresh_page_view/<%=post.id%>" class="button big" style="color:red">
+										Continue Reading</a></li>
 									</ul>
 									<ul class="stats">
 										<li> <%= post.category_id %></li>
@@ -120,7 +121,8 @@
 										    </header>
 										</article>
 
-                                        <% @popular_view.each do |post| %>
+                                        <% @popular_view.each do |k,v| %>
+                                        	<% post = @popular_assignment.where(id: k).first %>
 											<article class="mini-post">
 												<header>
 													<h3><a href="#"><%= post.title %></a></h3>

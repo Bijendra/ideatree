@@ -1,12 +1,12 @@
-<!DOCTYPE html>
-<html >
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js">
+</script>
 </head>
+
+
+
 
 <div id="main" >
 
@@ -66,40 +66,44 @@
                                     likepic,unlikepic = ["empty_thumbs-up","empty_thumbs-down"] %>
                               <% end %>
         <td> <%= @like_count[assignment.id.to_s].to_i %></td>
-        <td><%= link_to image_tag(likepic), like_assignment_path(assignment,status: true),  class: 'vote', method: :put, remote: true %>
+        <td id="liked_by_<%=assignment.id%>"> <%= link_to image_tag(likepic), liked_by_path(id: assignment.id), :remote => true, :method => :get %>
         </td>
-        <!-- html for the page with modal -->
-        <td id="liked_by_<%=assignment.id%>"> <%= link_to image_tag(likepic), likedby_path(id: assignment.id), :remote => true, :method => :get %>
-        </td>
+
         <td><%= unlike_count %></td>
-        <td><%= link_to image_tag(unlikepic), like_assignment_path(assignment,status: false), class: 'vote', method: :put , remote: true  %>
-        </td>
+       <!--  <td><%#= link_to image_tag(unlikepic), like_assignment_path(assignment,status: false), class: 'vote', method: :put , remote: true  %>
+        </td> -->
       </tr>
     <% end %>
   </tbody>
 </table>
 
-
-
-<body>
-
-<div class="container">
-  <h2>Modal Example</h2>
-  <!-- Trigger the modal with a button -->
-  <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
-
-  <!-- Modal -->
-  <% @asp = ["dsds"] %>
- <%= render :partial => "likedby_modal", locals: {liked_by: @asp} %>
-
   
-</div>
 
-</body>
-</html>
+  <div >
+
+    <a href="#myPopupDialog" data-rel="popup" data-position-to="window" data-transition="fade" class="ui-btn ui-corner-all ui-shadow ui-btn-inline first34" id="<%= 10  %>">Like</a>
+
+    <div data-role="popup" id="myPopupDialog">
+      <div data-role="header">
+        <h1>Liked By</h1>
+      </div>
+      <div class="check123"><div data-role="main" class="ui-content">
+  <% $next = 0 %>
+     <% for i in @liked_by["10"] %>
+     <p> <%= i %> </p>
+     <% $next += 1 %>
+   <% end %>
+  <a href="#" data-rel="back">Go Back</a>
+</div>
+</div>
+    </div>  
+  </div>
 
 
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>
 
 </div>
+
+  
+</script>

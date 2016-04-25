@@ -23,9 +23,8 @@ Rails.application.routes.draw do
   get "/more_comments/:id" => "comments#more_comments", :as => "more_comments"
 
   get "/search" => "assignments#search"
-
   get "/fresh_page_view/:id" => "comments#fresh_page_view", :as => "fresh_page_view"
-  get "/likedby" => "users#likedby" , :as => "likedby"
+  get "/liked_by/:id" => "users#liked_by" , :as => "liked_by"
   devise_for :users
   resources :users
 

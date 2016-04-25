@@ -10,9 +10,19 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
+    @all_user = User.all
     @like_obj = Like.all
     @like_count = Like.where(status: true).group(:assignment_id).count
     @unlike_count = Like.where(status: false).group(:assignment_id).count
+
+        #@liked_by = User.where(id: @like_obj.where(status: true).map(&:user_id)).map(&:name)
+
+    @liked_by = Like.all.where(status: true).group_by(&:assignment_id)
+    p "hiii"*20
+    #p @liked_by["10"].first
+    #p @unliked_by
+    #@like_user_data = 
+    # {1 => ["name1", "name2"]} like user
   end
 
   # GET /users/new
@@ -64,7 +74,7 @@ class UsersController < ApplicationController
     end
   end
 
-  def likedby
+  def liked_by
     p params[:id]
     @assign_id =  params[:id]
     @like_obj = Like.all.where(assignment_id: params[:id])
@@ -72,11 +82,15 @@ class UsersController < ApplicationController
     p "hiii"*20
     @liked_by = User.where(id: @like_obj.where(status: true).map(&:user_id)).map(&:name)
     @unliked_by = User.where(id: @like_obj.where(status: false).map(&:user_id)).map(&:name)
-    @liked_by = "<ul><li>dsdss</li><li>dsdss11</li><li>dsdssewe</li></ul>"
     p @liked_by
     p @unliked_by
        
 end
+
+  def contributions
+    @user = User.all
+
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.

@@ -17,6 +17,9 @@
 								<a href="#" class="image featured"><img src="<%= post.avatar.url(:original) %>" alt="" width="600px" height="400px" /></a>
                 </div>
 								<p><%= post.description %></p>
+                <% if !post.document.blank? %>
+                <a href=<%= post.document(:original) %>><%= image_tag("Iconpdf.png") %></a>
+                <% end %>
                 </div>
 								<footer>
 									<div>
@@ -69,6 +72,9 @@
       									<% @comments.each do |comment| %>
 							           <tr >
                          <td width="20%">
+                         <a href="#" ><img src="<%= comment.user.avatar.url(:original) %>" alt="" height="42" width="42"/></a>
+                         </td>
+                         <td >
                          <%= comment.user.name %>
                          </td>
                          </tr>
@@ -79,7 +85,7 @@
 											</td>
 
           								<% if current_user.id.to_s == comment.user_id.to_s %>
-          									<td width="30%"><%= link_to 'Destroy', comment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          									<td width="30%"><%= link_to image_tag("delete.png") , comment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
           								<% end %> 
 										</div>
          								</tr>
@@ -92,8 +98,12 @@
 
 						<!-- Pagination -->
 							<ul class="actions pagination">
+              <% if @previous_page == nil %> 
 								<li><a href="" class="disabled button big previous">Previous Page</a></li>
-								<li><a href="#" class="button big next">Next Page</a></li>
+              <% else %>
+                <li><a href="<%= @previous_page %>" class="button big next">Previous Page</a></li>
+              <% end %>
+								<li><a href="<%= @next_page %>" class="button big next">Next Page</a></li>
 							</ul>
 
 					</div>
