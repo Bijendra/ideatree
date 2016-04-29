@@ -23,13 +23,11 @@ class AssignmentsController < ApplicationController
       p i.id
       p @comments[i.id]
       p "$"*100
-      if !@comments[i.id].blank?
-        popular[i.id] = (@comments[i.id].count * 5) 
-      end 
+      
+      popular[i.id] = (@comments[i.id].count * 5) unless @comments[i.id].blank?
 
-      if !likes[i.id.to_s].blank?
-        popular[i.id] += likes[i.id.to_s].count
-      end
+      popular[i.id] += likes[i.id].count unless likes[i.id].nil?
+     
     end
     @popular_view = popular.sort_by{|_key, value| -value}.to_h
         p @popular_view
@@ -156,16 +154,18 @@ p @sta.class
     @unlike_count = Like.where(status: false).group(:assignment_id).count
     @twocom = Comment.last(2)
     @com = Comment.new #hash
+    query_value = params[:query] 
+    p "2"*100
      @assignments = Assignment.find_by_sql("SELECT * FROM assignments
-      WHERE title LIKE '%idea%' OR description LIKE '%idea%'
+      WHERE title LIKE '%#{query_value}%' OR description LIKE '%#{query_value}%'
       ORDER BY CASE
-        WHEN (title LIKE '%idea%' AND description LIKE '%idea%') THEN 1
-        WHEN (title LIKE '%idea%' AND description NOT LIKE '%idea%') THEN 2
+        WHEN (title LIKE '%#{query_value}%' AND description LIKE '%#{query_value}%') THEN 1
+        WHEN (title LIKE '%#{query_value}%' AND description NOT LIKE '%#{query_value}%') THEN 2
         ELSE 3
         END, title
     LIMIT 0, 6; ")
      popular = Hash.new
-     for i in @assignments
+     for i in @popular_assignment
       popular[i.id] = (Comment.where(Assignment_id: i.id).all.count * 5) + Like.where(Assignment_id: i.id,status: true).count
     end
     @popular_view = popular.sort_by{|_key, value| -value}.to_h
