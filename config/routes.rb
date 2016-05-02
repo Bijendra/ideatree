@@ -25,8 +25,35 @@ Rails.application.routes.draw do
   get "/search" => "assignments#search"
   get "/fresh_page_view/:id" => "comments#fresh_page_view", :as => "fresh_page_view"
   get "/liked_by/:id" => "users#liked_by" , :as => "liked_by"
-  devise_for :users
+  # devise_for :users
   resources :users
+  devise_for :user, :path => '', :path_names => { :sign_in => "login", :sign_out => "logout", :sign_up => "register" }
+#custom routes defined
+  # devise_scope :user do
+  #   get "/login" => "devise/sessions#new"
+  # end
+
+  # devise_scope :user do
+  #   delete "/logout" => "devise/sessions#destroy"
+  # end
+
+  # devise_for :users, :skip => [:sessions]
+  # as :user do
+  #   get 'signin' => 'devise/sessions#new', :as => :new_user_session
+  #   post 'signin' => 'devise/sessions#create', :as => :user_session
+  #   delete 'signout' => 'devise/sessions#destroy', :as => :destroy_user_session
+  # end
+  
+
+  # devise_scope :user do
+  #   authenticated :user do
+  #     root 'home#index', as: :authenticated_root
+  #   end
+
+  #   unauthenticated do
+  #     root 'devise/sessions#new', as: :unauthenticated_root
+  #   end
+  # end
 
 
   # match ':controller(/:action(/:id))(.:format)'

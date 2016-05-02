@@ -2,22 +2,37 @@
 
 <div id="main">
     <div class="border-form-div ">
-        <h2>Log in</h2>
-        <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-        <%#= devise_error_messages! %>
-        <!-- Rails.logger.info dewise_error_messages -->
-        <div class="form-inputs">
-      
-          <%= f.input :email,required: true, :autofocus => true, :placeholder => 'Email address' %>
-          <%= f.input :password,required: true, :placeholder => 'Password' %>
-          <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
-        </div>
+        
+        <div class="login_form">
+          <h2>Log in</h2>
+            <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+            <%#= devise_error_messages! %>
+            <!-- Rails.logger.info dewise_error_messages -->
+                <div class="form-inputs">
+              
+                  <%= f.input :email,required: true, :autofocus => true, :placeholder => 'Email address', label: false %>
+                  <%= f.input :password,required: true, :placeholder => 'Password', label: false %>
+                  <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable?%>
+                </div>
 
-        <div class="form-actions">
-            <%= f.button :submit, "Log in" %>
-            <%= link_to "Sign Up", new_user_registration_path, :class => 'btn btn-primary'%><br />
-        </div>
-        <% end %>
+                <div class="form-actions">
+                    <%= f.button :submit, "Log in" %>
+                    <%= link_to "Sign Up", new_user_registration_path, :class => 'btn btn-primary'%><br />
+                </div>
+            <% end %>
+        </div>    
     </div>
 </div>
-</div>
+
+<style type="text/css">
+    .login_form {
+        width: 400px;
+        margin: 0 auto;
+    }
+
+    .form-inputs .form-group input {
+        margin-bottom: 10px;
+    }
+
+    
+</style>
