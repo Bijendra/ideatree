@@ -10,7 +10,7 @@
           <div class="meta">
             <time class="published" datetime="<%= post.created_at.strftime("%d-%m-%Y")%>"><%= post.created_at.strftime("%B %d, %Y") %></time>
             <%# pry.bind %>
-            <a href="#" class="author"><h2 class="name"><%= post.user.name ||= post.user.get_display_name %></h2><img src="<%= post.user.avatar.url(:medium) %>" alt=""  /></a>
+            <a href="/public/<%= post.user.id %>" class="author"><h2 class="name"><%= post.user.name ||= post.user.get_display_name %></h2><img src="<%= post.user.avatar.url(:medium) %>" alt=""  /></a>
           </div>
         </header>
         <% if !post.avatar.blank? %>
@@ -127,7 +127,7 @@
               <h3><a href="#"><%= post.title %></a></h3>
               <!-- Update created_at with published at -->
               <time class="published" datetime="<%= post.created_at.strftime("%d-%m-%Y")%>"><%= post.created_at.strftime("%B %d, %Y") %></time>
-              <a href="#" class="author"><img src="<%= post.user.avatar.url(:original) %>" alt="" /></a>
+              <a href="/public/<%= post.user.id %>" class="author"><img src="<%= post.user.avatar.url(:original) %>" alt="" /></a>
             </header>
             <a href="#" class="image"><img src="<%= post.avatar.url(:medium) %>" alt="" /></a>
           </article>
@@ -146,7 +146,7 @@
                 <h3><a href="#"><%= post.title %></a></h3>
                 <time class="published" datetime="2015-10-20"><%= post.created_at.strftime("%B %d, %Y") %></time>
               </header>
-              <a href="#" class="image"><img src="<%= post.avatar.url(:medium) %>" alt="" /></a>
+              <a href="/public/<%= post.user.id %>" class="image"><img src="<%= post.avatar.url(:medium) %>" alt="" /></a>
             </article>
           </li>
       <% end %>

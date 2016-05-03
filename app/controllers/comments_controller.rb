@@ -5,8 +5,6 @@ class CommentsController < ApplicationController
   # GET /comments.json
   before_action :find_assignment_and_comment, :only => [:create, :create_comment_ajax]
   def index
-    p params
-    p "S"*100
     @user = User.all
     @comments = Comment.all
     @all_comments = @comments
@@ -59,22 +57,14 @@ class CommentsController < ApplicationController
   end
   
   def create_comment_ajax
-    # @comment
-    # handle ajax call
-        assignment_obj = Assignment.find(params[:assignment_id])
+    assignment_obj = Assignment.find(params[:assignment_id])
 
       respond_to do |format|
       if @comment.save
         
-        # format.html { redirect_to @assignment, notice: 'comment was successfully created.' }
         format.js { render action: 'show', status: :created, location: @comment , locals: {assignment_id: assignment_obj}}
-        # added:
-        # format.js   { render action: 'show', status: :created, location: @comment }
       else
-        # format.html { render action: 'new' }
         format.js { render json: @comment.errors, status: :unprocessable_entity }
-        # added:
-        # format.js   { render json: @comment.errors, status: :unprocessable_entity }
       end
     end
   end  
@@ -85,19 +75,12 @@ class CommentsController < ApplicationController
     @comment.user_id = current_user.id
     @comment.assignment_id = assignment_obj.id
     @comment.save
-    #render "create_comment_ajax"
-    p "d"*100
-
   end 
 
 
   def more_comments
-
-        @assignment_obj = Assignment.find(params[:id])
-        @com = Comment.where(assignment_id: @assignment_obj).reverse.drop(2).map(&:content)
-        p "$"*100
-        p @assignment_obj.id
-        p @com
+    @assignment_obj = Assignment.find(params[:id])
+    @com = Comment.where(assignment_id: @assignment_obj).reverse.drop(2).map(&:content)
   end  
   # PATCH/PUT /comments/1
   # PATCH/PUT /comments/1.json
