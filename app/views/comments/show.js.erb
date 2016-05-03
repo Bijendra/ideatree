@@ -1,5 +1,5 @@
 
-$('#comment_table-<%= assignment_id.id %>').prepend("<%= j render partial: 'new_comment', locals: {commentdisplay: @comment.content } %>");
+$('#comment_table-<%= assignment_id.id %>').append("<%= j render partial: 'new_comment', locals: {comment: @comment } %>");
 $('#new_comment_modal').modal_success();
 document.getElementById("com").value = "";
 

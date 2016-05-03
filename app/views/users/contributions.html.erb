@@ -1,5 +1,17 @@
+<div id="main">
+
  <% @user.each do |user| %>
+<div style="margin-left: 30px;margin-top:40px; width: 200px;border-style: outset; box-shadow: 0 2px 2px 0 rgba(0,0,0,0.10),0 2px 10px 0 rgba(0,0,0,0.18) !important; padding: 10px; float: left" >
 
-<a href="#" class="author"><h2 class="name"><%= user.name %></h2><img src="<%= user.avatar.url(:medium) %>" alt=""  /></a>
-
+<a href="<%= user.id%>" class="author" ><img src="<%= user.avatar.url(:thumb) %>" alt=""  /></a>
+ <h2 class="name" href="<%= user.id%>" ><%= user.name %></h2> 
+Total ideas : <%= user.assignments.count %>  <br>
+	<% user.assignments.each do |idea| %>
+		<% if !idea.title.blank?  %>
+			<li style="margin-left:20px" href=""><%= idea.title.inspect %> </li>
+		<% end %>
+	<% end %>
+</div>
 <% end %>
+
+</div>

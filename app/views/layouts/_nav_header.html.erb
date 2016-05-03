@@ -12,10 +12,10 @@
 				<% end %>
 			</li>
 			<li>
-			 	 <a href="/users/<%= current_user.id %>"><strong><%= current_user.name ||= "Welcome Guest!" %></strong></a>
+			 	 <a href="/users/<%= current_user.id %>"><strong><%= current_user.name ||= current_user.get_display_name %></strong></a>
     	     </li>
 			<li >
-              <%= image_tag current_user.avatar.url(:thumb), :size => "30x30" %>
+              <a href="/users/<%= current_user.id %>" ><%= image_tag current_user.avatar.url(:thumb), :size => "40x45", :style => "padding-top:6px" %> </a>
             </li> 
 			<%= render 'devise/menu/login_items' %>
 			</div>

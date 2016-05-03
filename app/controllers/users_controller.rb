@@ -12,12 +12,12 @@ class UsersController < ApplicationController
   def show
     @all_user = User.all
     @like_obj = Like.all
-    @like_count = Like.where(status: true).group(:assignment_id).count
-    @unlike_count = Like.where(status: false).group(:assignment_id).count
+    @like_count = @like_obj.where(status: true).group(:assignment_id).count
+    @unlike_count = @like_obj.where(status: false).group(:assignment_id).count
 
         #@liked_by = User.where(id: @like_obj.where(status: true).map(&:user_id)).map(&:name)
 
-    @liked_by = Like.all.where(status: true).group_by(&:assignment_id)
+    @liked_by = @like_obj.all.where(status: true).group_by(&:assignment_id)
     p "hiii"*20
     #p @liked_by["10"].first
     #p @unliked_by

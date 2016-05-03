@@ -9,22 +9,23 @@ class CommentsController < ApplicationController
     p "S"*100
     @user = User.all
     @comments = Comment.all
-    @all_comments = Comment.all
-    @all_assignment = Assignment.all
-    @assignment = Assignment.find(params[:format])
-    @comment = Comment.new
+    @all_comments = @comments
+    @all_assignment = Assignment.where(status: false)
+    @assignment = @all_assignment.find(params[:format])
+    @comment = @comments.new
     render "fresh_page_view"
   end
   
   def fresh_page_view
+    @assignment_obj = Assignment.where(status: false)
     if params["fresh"].present?
-      list = @assignment = Assignment.where(status: true).map(&:id)
+      list = @assignment = @assignment_obj.where(status: true).map(&:id)
     end 
-    @next_page = Assignment.all.map(&:id).index(params[:id].to_i)
-    @next_page = Assignment.all.map(&:id)[@next_page-1]
-    @previous_page = Assignment.all.map(&:id).index(params[:id].to_i)
-    @previous_page = Assignment.all.map(&:id)[@previous_page+1]
-    @assignment = Assignment.where(id: params[:id]).first
+    @next_page = @assignment_obj.all.map(&:id).index(params[:id].to_i)
+    @next_page = @assignment_obj.all.map(&:id)[@next_page-1]
+    @previous_page = @assignment_obj.all.map(&:id).index(params[:id].to_i)
+    @previous_page = @assignment_obj.all.map(&:id)[@previous_page+1]
+    @assignment = @assignment_obj.where(id: params[:id]).first
     @comments = Comment.where(assignment_id: @assignment.id).all
     @like_obj = Like.where(assignment_id: @assignment.id)
     @like_count = Like.where(status: true).where(assignment_id: @assignment.id).count

@@ -9,7 +9,7 @@
 
       <div class="meta">
         <time class="published" datetime="<%= post.created_at.strftime("%d-%m-%Y")%>"><%= post.created_at.strftime("%B %d, %Y") %></time>
-        <a href="#" class="author"><span class="name"><%= post.user.get_display_name %></span><img src="<%= post.user.avatar.url(:medium) %>" alt="" /></a>
+        <a href="#" class="author"><span class="name"><%= post.user.name ||= post.user.get_display_name %></span><img src="<%= post.user.avatar.url(:medium) %>" alt="" /></a>
       </div>
     </header>
     <div style="width: 100%; height: 100%; overflow: hidden;">
@@ -24,26 +24,25 @@
     <footer>
       <div>
         <ul class="stats">
-          <li><%= post.category_id %></li>
+            <li> <%= post.category_id %></li>
+           <% if !@like_obj.where(assignment_id: post.id, user_id: current_user.id).blank? %>
+                <% likepic,unlikepic = case @like_obj.where(assignment_id: post.id,user_id: current_user.id).first.status
+                                         when true
+                                           ["thumbs-up","empty_thumbs-down"]
+                                         when false
+                                           ["empty_thumbs-up","thumbs-down"]
+                                         when nil
+                                           ["empty_thumbs-up","empty_thumbs-down"]
+                                       end %>
+                <% like_count = @like_count
+                   unlike_count = @unlike_count %>
 
-          <% if !@like_obj.blank? %>
-              <% likepic,unlikepic = case @like_obj.where(assignment_id: post.id,user_id: current_user.id).first.status
-                                       when true
-                                         ["thumbs-up","empty_thumbs-down"]
-                                       when false
-                                         ["empty_thumbs-up","thumbs-down"]
-                                       when nil
-                                         ["empty_thumbs-up","empty_thumbs-down"]
-                                     end %>
+            <% else %>
               <% like_count = @like_count
-                 unlike_count = @unlike_count %>
-
-          <% else %>
-              <% like_count = 0
-                 unlike_count = 0
-                 likepic,unlikepic = ["empty_thumbs-up","empty_thumbs-down"] %>
-          <% end %>
-
+                   unlike_count = @unlike_count
+                   likepic,unlikepic = ["empty_thumbs-up","empty_thumbs-down"] %>
+            <% end %>
+        
           <li class="like-count" id="like-<%= post.id %>">
             <%= like_count %>
           </li>
@@ -64,34 +63,40 @@
     <br>
     <div>
   <% if !@comments.blank? %>
-          <table style="margin:5px" class='table' id='comment_table'>
-            <thead>
-            <tr><th>Comments</th></tr>
-            </thead>
-            <tbody id="comment-modal">
-            <% @comments.each do |comment| %>
-                <tr >
-                  <td width="20%">
-                    <a href="#" ><img src="<%= comment.user.avatar.url(:original) %>" alt="" height="42" width="42"/></a>
-                  </td>
-                  <td >
-                    <%= comment.user.name %>
-                  </td>
-                </tr>
-                <tr>
-                  <td width="60%">
-                    <div style="background:#c1c1c1; border-style: outset; box-shadow: 0 2px 4px 0 rgba(0,0,0,0),0 2px 10px 0 rgba(0,0,0,0.18) !important;" >
-                      <p><%= comment.content %></p>
-                  </td>
-
-                  <% if current_user.id.to_s == comment.user_id.to_s %>
-                      <td width="30%"><%= link_to image_tag("delete.png") , comment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-                  <% end %>
+          <table style="margin:5px" class='table' id='comment_table-<%= post.id%>'>
+             <thead>
+             <tr><th> <h3>Comments:</h3></th></tr>
+             </thead>
+             <tbody id="comment-modal">
+             <% @comments.each do |comment| %>
+                
+                 <tr>
+                 <td>
+                  <div style="width: 100%; height: 100%; overflow: hidden;">
+                      <div style="float:left; overflow:hidden;" >
+                         <a href="#" ><img src="<%= comment.user.avatar.url(:original) %>" alt="" height="42" width="42"/></a>
+                      </div>
+                      <div style="margin-left:80px">
+                      <p style='margin:0px !important;font-size: 1em;  '><%= comment.content %></p>
+                       <p style="color:red;margin:0px;font-size: 0.8em;font-style:italic;">Posted by <%= comment.user.name ||= current_user.get_display_name %> <%= time_ago_in_words(comment.created_at) %> ago </p>
+                       </div>
                   </div>
-                  </tr>
-            <% end %>
-            </tbody>
-            </table>
+                   <% if current_user.id == comment.user_id %>
+                       <td style="width:*;"><%= link_to image_tag("delete.png") , comment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                   <% end %>
+                   </td>
+                   </tr>
+             <% end %>
+             </tbody>
+
+           </table>
+            <% if @comments[post.id] !=nil %>
+              <% comments_detail = @comments[post.id] %>
+              <% all_comment = {} %>
+              <% comments_detail.map {|u| all_comment[u.id] = u.content} %>
+              <%= render partial: 'comments/assgn_comment', locals: {all_comment: all_comment ,assignid: post.id} %>
+          <% end %>
+          <%= render partial: 'comments/new_comment_form', locals: { assignid: post.id} %>
       <% end %>
 </article>
 

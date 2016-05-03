@@ -4,20 +4,20 @@ class AssignmentsController < ApplicationController
   # GET /assignments
   # GET /assignments.json
   def index
-    @assignments = Assignment.all.order(created_at: :desc) #change it to sort by published date. Show most recent on top
+    @assignments = Assignment.where(status: false).order(created_at: :desc) #change it to sort by published date. Show most recent on top
     @popular_assignment = @assignments
     @comments = Comment.all.group_by(&:assignment_id)
     @user = User.all
     @like_obj = Like.all
-    @like_count = Like.where(status: true).group(:assignment_id).count
+    @like_count = @like_obj.where(status: true).group(:assignment_id).count
     p @like_obj
-    @unlike_count = Like.where(status: false).group(:assignment_id).count
+    @unlike_count = @like_obj.where(status: false).group(:assignment_id).count
     @twocom = Comment.last(2)
     @com = Comment.new #hash
     popular = Hash.new
 
 
-    likes= Like.all.where(status: true).group_by(&:assignment_id)
+    likes= @like_obj.all.where(status: true).group_by(&:assignment_id)
     popular = Hash.new
     for i in @assignments
       p i.id
@@ -145,18 +145,18 @@ p @sta.class
     #@comments = Comment.all.group_by(&:assignment_id)
     #@twocom = Comment.last(2)
     #@com = Comment.new #hash
-    @popular_assignment = Assignment.all
+    @popular_assignment = Assignment.where(status: false)
     @comments = Comment.all.group_by(&:assignment_id)
     @user = User.all
     @like_obj = Like.all
-    @like_count = Like.where(status: true).group(:assignment_id).count
+    @like_count = @like_obj.where(status: true).group(:assignment_id).count
     p @like_obj
-    @unlike_count = Like.where(status: false).group(:assignment_id).count
+    @unlike_count = @like_obj.where(status: false).group(:assignment_id).count
     @twocom = Comment.last(2)
     @com = Comment.new #hash
     query_value = params[:query] 
     p "2"*100
-     @assignments = Assignment.find_by_sql("SELECT * FROM assignments
+     @assignments = @popular_assignment.find_by_sql("SELECT * FROM assignments
       WHERE title LIKE '%#{query_value}%' OR description LIKE '%#{query_value}%'
       ORDER BY CASE
         WHEN (title LIKE '%#{query_value}%' AND description LIKE '%#{query_value}%') THEN 1

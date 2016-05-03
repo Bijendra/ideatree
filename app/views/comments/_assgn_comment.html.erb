@@ -9,13 +9,25 @@
     <table id='comment_table-<%= assignid%>'>
      
 	  <tbody id="comment-modal">
+             <% comment.each do |comment| %>
 
-	      <tr>
-            
-	         <%#= render partial:'comments/table_row', locals: { commentdisplay: all_comment.first(2), assignment_id: assignid}%>
-          
-	      
-	        </tr>
+	     <tr>
+                 <td>
+                  <div style="width: 100%; height: 100%; overflow: hidden;">
+                      <div style="float:left; overflow:hidden;" >
+                         <a href="#" ><img src="<%= comment.user.avatar.url(:original) %>" alt="" height="42" width="42"/></a>
+                      </div>
+                      <div style="margin-left:80px">
+                      <p style='margin:0px !important;font-size: 1em;  '><%= comment.content %></p>
+                       <p style="color:red;margin:0px;font-size: 0.8em;font-style:italic;">Posted by <%= comment.user.name ||= current_user.get_display_name %> <%= time_ago_in_words(comment.created_at) %> ago </p>
+                       </div>
+                  </div>
+                   <% if current_user.id == comment.user_id %>
+                       <td style="width:*;"><%= link_to image_tag("delete.png") , comment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                   <% end %>
+                   </td>
+                   </tr>
+                   <% end %>
 	  </tbody>
 	</table>
 <%# end %>

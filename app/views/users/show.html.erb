@@ -12,9 +12,10 @@
 
 <%#= render :partial => "shared/home_nav_bar" %>
 <h2>Listing Ideas submitted by User <%= @user.name %> </h2>
+ <p style="font-size:20px"><%= link_to 'Edit Profile', edit_user_path(@user) %> </p>
 <p>
   <strong>Name:</strong>
-  <%= @user.name %>
+  <%= @user.name ||= @user.get_display_name %>
 </p>
 
 <p>
@@ -44,7 +45,7 @@
         <td><%= assignment.description %></td>
         <td><%= assignment.category_id %></td>
         <td><%= assignment.status %></td>
-        <td><%= link_to 'Show', assignment %></td>
+        <td><a href="fresh_page_view/<%=assignment.id%>"> Show </a></td>  
         <td><%= link_to 'Edit', edit_assignment_path(assignment) %></td>
         <td><%= link_to 'Destroy', assignment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         <%#= raise @like_obj.inspect %>
@@ -79,9 +80,9 @@
 
   
 
-  <div >
+  <!-- <div >
 
-    <a href="#myPopupDialog" data-rel="popup" data-position-to="window" data-transition="fade" class="ui-btn ui-corner-all ui-shadow ui-btn-inline first34" id="<%= 10  %>">Like</a>
+    <a href="#myPopupDialog" data-rel="popup" data-position-to="window" data-transition="fade" class="ui-btn ui-corner-all ui-shadow ui-btn-inline first34" id="<%#= 10  %>">Like</a>
 
     <div data-role="popup" id="myPopupDialog">
       <div data-role="header">
@@ -94,10 +95,9 @@
 </div>
     </div>  
   </div>
+ -->
 
-
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+<%#= link_to 'Back', users_path %>
 
 </div>
 
