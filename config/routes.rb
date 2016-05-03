@@ -19,7 +19,7 @@ Rails.application.routes.draw do
   get "/ideas" => "assignments#index"
   post "/create_comment_ajax" => "comments#create_comment_ajax"
   get "/comments" => "comments#index"
-
+  get "/contributions" => "users#contributions"
   get "/more_comments/:id" => "comments#more_comments", :as => "more_comments"
 
   get "/search" => "assignments#search"

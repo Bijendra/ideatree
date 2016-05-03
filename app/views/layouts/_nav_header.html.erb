@@ -5,7 +5,7 @@
 		<ul>
 			<li><a href="/assignments">Browse</a></li>
 			<li><a href="/assignments/new">Submit</a></li>
-			<li><a href="/users/<%= current_user.id %>">Contributions</a></li>
+			<li><a href="/contributions">Contributions</a></li>
 			<div style="float:right"> 
 			<li> <%= form_tag(search_path, :method => "get", :action => "/search", id: "search-form") do %>
 				<input type="text" name="query" placeholder="Search" />
