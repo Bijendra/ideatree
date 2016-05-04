@@ -15,6 +15,7 @@ class AssignmentsController < ApplicationController
     @twocom = Comment.last(2)
     @com = Comment.new #hash
     popular = Hash.new
+    @browse_color = 1
 
 
     likes= @like_obj.all.where(status: true).group_by(&:assignment_id)
@@ -52,6 +53,8 @@ class AssignmentsController < ApplicationController
   # GET /assignments/new
   def new
     @assignment = Assignment.new
+        @submit_color = 1
+
   end
 
   # GET /assignments/1/edit

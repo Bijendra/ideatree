@@ -11,72 +11,67 @@
 <div id="main" >
 
 <%#= render :partial => "shared/home_nav_bar" %>
-<h2>Listing Ideas submitted by User <%= @user.name %> </h2>
- <p style="font-size:20px"><%= link_to 'Edit Profile', edit_user_path(@user) %> </p>
-<p>
-  <strong>Name:</strong>
-  <%= @user.name ||= @user.get_display_name %>
-</p>
+<p style="font-size:25px">
+<b><a style="color: rgb(179, 36, 0);" href="/users/4/edit">Edit Profile</a></b>
+ </p>
+<% ideas = @user.assignments.where(status: false) %>
+<% if ideas.present? %>
+  <h2>Ideas submitted by you</h2>
 
-<p>
-  <strong>Email:</strong>
-  <%= @user.email %>
-</p>
-
-<p>
-  <strong>Phone:</strong>
-  <%= @user.phone %>
-</p>
-<table>
-  <thead>
-    <tr>
-      <th></th>
-      <th>Description</th>
-      <th>Category</th>
-      <th>Status</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @user.assignments.each do |assignment| %>
+  <table>
+    <thead>
       <tr>
-        <td><%= image_tag assignment.avatar.url(:thumb), :size => "30x30" %></td>
-        <td><%= assignment.description %></td>
-        <td><%= assignment.category_id %></td>
-        <td><%= assignment.status %></td>
-        <td><a href="fresh_page_view/<%=assignment.id%>"> Show </a></td>  
-        <td><%= link_to 'Edit', edit_assignment_path(assignment) %></td>
-        <td><%= link_to 'Destroy', assignment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        <%#= raise @like_obj.inspect %>
-        <% if !@like_obj.where(assignment_id: assignment.id, user_id: current_user.id).blank? %> 
-
-                                  <% likepic,unlikepic = case @like_obj.where(assignment_id: assignment.id,user_id: current_user.id).first.status 
-                                      when true
-                                          ["thumbs-up","empty_thumbs-down"]
-                                      when false
-                                          ["empty_thumbs-up","thumbs-down"]
-                                      when nil
-                                          ["empty_thumbs-up","empty_thumbs-down"]
-                                    end %>
-                                  <% like_count = @like_count[assignment.id.to_s].to_i
-                                    unlike_count = @unlike_count[assignment.id.to_s].to_i %>
-                              <% else %>
-                                  <% like_count = 0
-                                    unlike_count = 0
-                                    likepic,unlikepic = ["empty_thumbs-up","empty_thumbs-down"] %>
-                              <% end %>
-        <td> <%= @like_count[assignment.id.to_s].to_i %></td>
-        <td id="liked_by_<%=assignment.id%>"> <%= link_to image_tag(likepic), liked_by_path(id: assignment.id), :remote => true, :method => :get %>
-        </td>
-
-        <td><%= unlike_count %></td>
-       <!--  <td><%#= link_to image_tag(unlikepic), like_assignment_path(assignment,status: false), class: 'vote', method: :put , remote: true  %>
-        </td> -->
+        <th></th>
+        <th>Description</th>
+        <th>Category</th>
+        <th>Status</th>
+        <th colspan="3"></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+
+    <tbody>
+      <% @user.assignments.each do |assignment| %>
+        <tr>
+          <td><%= image_tag assignment.avatar.url(:thumb), :size => "30x30" %></td>
+          <td><%= assignment.description %></td>
+          <td><%= assignment.category_id %></td>
+          <td><%= assignment.status %></td>
+          <td><a href="/fresh_page_view/<%=assignment.id%>"> Show </a></td>  
+          <td><%= link_to 'Edit', edit_assignment_path(assignment) %></td>
+          <td><%= link_to 'Destroy', assignment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <%#= raise @like_obj.inspect %>
+          <% if !@like_obj.where(assignment_id: assignment.id, user_id: current_user.id).blank? %> 
+
+                                    <% likepic,unlikepic = case @like_obj.where(assignment_id: assignment.id,user_id: current_user.id).first.status 
+                                        when true
+                                            ["thumbs-up","empty_thumbs-down"]
+                                        when false
+                                            ["empty_thumbs-up","thumbs-down"]
+                                        when nil
+                                            ["empty_thumbs-up","empty_thumbs-down"]
+                                      end %>
+                                    <% like_count = @like_count[assignment.id.to_s].to_i
+                                      unlike_count = @unlike_count[assignment.id.to_s].to_i %>
+                                <% else %>
+                                    <% like_count = 0
+                                      unlike_count = 0
+                                      likepic,unlikepic = ["empty_thumbs-up","empty_thumbs-down"] %>
+                                <% end %>
+          <td> <%= @like_count[assignment.id.to_s].to_i %></td>
+          <td id="liked_by_<%=assignment.id%>"> <%= link_to image_tag(likepic), liked_by_path(id: assignment.id), :remote => true, :method => :get %>
+          </td>
+
+          <td><%= unlike_count %></td>
+         <!--  <td><%#= link_to image_tag(unlikepic), like_assignment_path(assignment,status: false), class: 'vote', method: :put , remote: true  %>
+          </td> -->
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+    <h2> No Ideas are submitted </h2>
+<% end %>
+
 
   
 

@@ -9,9 +9,9 @@
 
 
 <div id="main" >
-<% ideas = @user.assignments.where(status: true) %>
+<% ideas = @user.assignments.where(status: false) %>
 <% if ideas.present? %>
-  <h2>Idea submitted by <%= @user.get_display_name %></h2>
+  <h2>Idea submitted by <%= @user.name ||=  @user.get_display_name %></h2>
   <table>
     <thead>
       <tr>
@@ -23,7 +23,7 @@
     </thead>
 
     <tbody>
-      <% @user.assignments.where(status: true).each do |assignment| %>
+      <% @user.assignments.where(status: false).each do |assignment| %>
         <tr>
           <td><%= image_tag assignment.avatar.url(:thumb), :size => "30x30" %></td>
           <td><%= assignment.description %></td>

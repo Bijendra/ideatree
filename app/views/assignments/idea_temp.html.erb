@@ -1,4 +1,5 @@
 <div id="main">
+
   <% @assignments.each do |post| %>
       <article class="post">
         <header>
@@ -9,7 +10,7 @@
 
           <div class="meta">
             <time class="published" datetime="<%= post.created_at.strftime("%d-%m-%Y")%>"><%= post.created_at.strftime("%B %d, %Y") %></time>
-            <%# pry.bind %>
+<%#= p post %>
             <a href="/public/<%= post.user.id %>" class="author"><h2 class="name"><%= post.user.name ||= post.user.get_display_name %></h2><img src="<%= post.user.avatar.url(:medium) %>" alt=""  /></a>
           </div>
         </header>
@@ -124,7 +125,7 @@
           <% post = @popular_assignment.where(id: k).first %>
           <article class="mini-post">
             <header>
-              <h3><a href="#"><%= post.title %></a></h3>
+              <h3><a href="fresh_page_view/<%=post.id%>"><%= post.title %></a></h3>
               <!-- Update created_at with published at -->
               <time class="published" datetime="<%= post.created_at.strftime("%d-%m-%Y")%>"><%= post.created_at.strftime("%B %d, %Y") %></time>
               <a href="/public/<%= post.user.id %>" class="author"><img src="<%= post.user.avatar.url(:original) %>" alt="" /></a>

@@ -10,6 +10,7 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
+    @username_color = 1
     @all_user = User.all
     @like_obj = Like.all
     @like_count = @like_obj.where(status: true).group(:assignment_id).count
@@ -89,7 +90,8 @@ end
 
 def contributions
   @user = User.all
-  @ideas = Assignment.where(status: true).group_by(&:user_id)
+  @contribution_color = 1
+  @ideas = Assignment.where(status: false).group_by(&:user_id)
 
 end
 
