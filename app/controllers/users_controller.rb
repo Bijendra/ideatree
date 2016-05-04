@@ -87,20 +87,25 @@ class UsersController < ApplicationController
        
 end
 
-  def contributions
-    @user = User.all
+def contributions
+  @user = User.all
+  @ideas = Assignment.where(status: true).group_by(&:user_id)
 
+end
+
+def public_profile
+  @user = User.where(id: params[:id]).first
+end
+
+private
+  # Use callbacks to share common setup or constraints between actions.
+  def set_user
+    p params[:id]
+    @user = User.find(params[:id])
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_user
-      p params[:id]
-      @user = User.find(params[:id])
-    end
-
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def user_params
-      params.require(:user).permit(:name, :email, :phone, :avatar)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def user_params
+    params.require(:user).permit(:name, :email, :phone, :avatar)
+  end
 end

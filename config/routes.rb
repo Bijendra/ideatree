@@ -19,15 +19,17 @@ Rails.application.routes.draw do
   get "/ideas" => "assignments#index"
   post "/create_comment_ajax" => "comments#create_comment_ajax"
   get "/comments" => "comments#index"
-
+  get "/contributions" => "users#contributions"
   get "/more_comments/:id" => "comments#more_comments", :as => "more_comments"
-
+  get "/public/:id" => "users#public_profile"
   get "/search" => "assignments#search"
   get "/fresh_page_view/:id" => "comments#fresh_page_view", :as => "fresh_page_view"
   get "/liked_by/:id" => "users#liked_by" , :as => "liked_by"
   # devise_for :users
   resources :users
   devise_for :user, :path => '', :path_names => { :sign_in => "login", :sign_out => "logout", :sign_up => "register" }
+
+
 #custom routes defined
   # devise_scope :user do
   #   get "/login" => "devise/sessions#new"
