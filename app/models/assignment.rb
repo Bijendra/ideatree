@@ -4,6 +4,7 @@ class Assignment < ActiveRecord::Base
 	has_many :tags
 	belongs_to :category
   #has_many :comments
+  attr_accessor :rank
 
 	has_attached_file :avatar, styles: { medium: "300x300>", thumb: "100x100>", home: "620x300>" }, default_url: "/images/:style/missing.png"
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/ 

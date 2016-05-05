@@ -4,8 +4,26 @@ class AssignmentsController < ApplicationController
   # GET /assignments
   # GET /assignments.json
   def index
-    @assignments = Assignment.where(status: false).order(created_at: :desc) #change it to sort by published date. Show most recent on top
-    @popular_assignment = @assignments
+    if params[:tag].present? && params[:tag] == "popular"
+      @popular_assignment1 = Assignment.where(status: false).all
+      popular = {}
+      s = []
+      for i in @popular_assignment1
+        popular[i.id] = (Comment.where(Assignment_id: i.id).all.count * 5) + Like.where(Assignment_id: i.id,status: true).count
+      end
+      @popular_view1 = popular.sort_by{|_key, value| -value}.to_h
+      p @popular_view1
+      p "D"*100
+      order_hsh = @popular_assignment1.group_by(&:id)
+      # binding.pry
+      @popular_view1.keys.each do |i|
+        s << order_hsh[i].first
+      end 
+      @assignments = s
+    else  
+      @assignments = Assignment.where(status: false).order(created_at: :desc) #change it to sort by published date. Show most recent on top
+    end  
+    @popular_assignment = Assignment.all
     @comments = Comment.all.group_by(&:assignment_id)
     @user = User.all
     @like_obj = Like.all
@@ -149,6 +167,8 @@ p @sta.class
     #@twocom = Comment.last(2)
     #@com = Comment.new #hash
     @popular_assignment = Assignment.where(status: false)
+    p @popular_assignment 
+    p "D"*100
     @comments = Comment.all.group_by(&:assignment_id)
     @user = User.all
     @like_obj = Like.all
@@ -160,17 +180,21 @@ p @sta.class
     query_value = params[:query] 
     p "2"*100
      @assignments = @popular_assignment.find_by_sql("SELECT * FROM assignments
-      WHERE title LIKE '%#{query_value}%' OR description LIKE '%#{query_value}%'
+      WHERE deleted_at IS NULL AND title LIKE '%#{query_value}%' OR description LIKE '%#{query_value}%' AND deleted_at IS NULL
       ORDER BY CASE
         WHEN (title LIKE '%#{query_value}%' AND description LIKE '%#{query_value}%') THEN 1
         WHEN (title LIKE '%#{query_value}%' AND description NOT LIKE '%#{query_value}%') THEN 2
         ELSE 3
         END, title
     LIMIT 0, 6; ")
+     
+     @query_value = query_value 
+     p @assignments
+     p "F"*100
      popular = Hash.new
      for i in @popular_assignment
-      popular[i.id] = (Comment.where(Assignment_id: i.id).all.count * 5) + Like.where(Assignment_id: i.id,status: true).count
-    end
+       popular[i.id] = (Comment.where(Assignment_id: i.id).all.count * 5) + Like.where(Assignment_id: i.id,status: true).count
+     end
     @popular_view = popular.sort_by{|_key, value| -value}.to_h
     p @popular_view
     p "s"*100
@@ -179,6 +203,10 @@ p @sta.class
   end  
   # DELETE /assignments/1
   # DELETE /assignments/1.json
+
+  def popular
+
+  end
   def destroy
     @assignment.destroy
     respond_to do |format|

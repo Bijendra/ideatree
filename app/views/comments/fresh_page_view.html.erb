@@ -9,7 +9,7 @@
 
       <div class="meta">
         <time class="published" datetime="<%= post.created_at.strftime("%d-%m-%Y")%>"><%= post.created_at.strftime("%B %d, %Y") %></time>
-        <a href="#" class="author"><span class="name"><%= post.user.name ||= post.user.get_display_name %></span><img src="<%= post.user.avatar.url(:medium) %>" alt="" /></a>
+        <a href="/public/<%= post.user_id %>" class="author"><span class="name"><%= post.user.name ||= post.user.get_display_name %></span><img src="<%= post.user.avatar.url(:medium) %>" alt="" /></a>
       </div>
     </header>
     <div style="width: 100%; height: 100%; overflow: hidden;">

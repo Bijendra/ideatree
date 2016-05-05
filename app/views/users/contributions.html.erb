@@ -1,4 +1,23 @@
 <div id="main">
+<% i =0 %>
+<%#= form_tag(contributions_user_path, method: 'put') do |f| %> 
+   <%#= select_tag(:id, 
+   options_for_select(@assignment.map{ |f| [f.category, i+=1]}), :prompt => "Select category") %> 
+   <%#= submit_tag "Submit" %> 
+<%# end %>
+
+<div class="field" style="width:200px">
+<form action="search_by_category" method="get">               
+<select id="search_by_category" name="search_by_category">
+<option value=""><%= @searched_by %></option>
+<option value="Technology">Technology</option>
+<option value="Hospitality">Hospitality</option>
+<option value="Sports">Sports</option>
+<option value="Education">Education</option>
+</select> 
+<input name="commit" type="submit" value="Search" class="action" />
+</form></div>
+
   <% @user.each do |user| %>
     <% var = rand(15) %>
 	<div style="margin-left: 30px;margin-top:40px; width: 200px;border-style: outset; box-shadow: 0 2px 2px 0 rgba(0,0,0,0.10),0 2px 10px 0 rgba(0,0,0,0.18) !important; padding: 10px; float: left;background-color: <%= BGCOLOR[var] %>;" >

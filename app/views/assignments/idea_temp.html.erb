@@ -1,5 +1,6 @@
 <div id="main">
-
+<% ideas = @assignments %>
+<% if ideas.present? %>
   <% @assignments.each do |post| %>
       <article class="post">
         <header>
@@ -10,7 +11,8 @@
 
           <div class="meta">
             <time class="published" datetime="<%= post.created_at.strftime("%d-%m-%Y")%>"><%= post.created_at.strftime("%B %d, %Y") %></time>
-<%#= p post %>
+        <% p post %>
+        <% p "d"*100 %>
             <a href="/public/<%= post.user.id %>" class="author"><h2 class="name"><%= post.user.name ||= post.user.get_display_name %></h2><img src="<%= post.user.avatar.url(:medium) %>" alt=""  /></a>
           </div>
         </header>
@@ -90,6 +92,9 @@
         </div>
       </article>
   <% end %>
+  <% else %>
+  <h2>No Ideas Listed for the search <%= @query_value %></h2>
+  <% end %>
 
   <!-- Pagination -->
  <!--  <ul class="actions pagination">
@@ -117,7 +122,7 @@
 
       <article class="mini-post">
         <header >
-          <h2 style="back-ground-color: #ff0000;"><a href="/search?tag=popular">Popular posts</a></h2>
+          <h2 style="back-ground-color: #ff0000;"><a href="?tag=popular">Popular posts</a></h2>
         </header>
       </article>
 

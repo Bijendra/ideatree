@@ -28,7 +28,7 @@
           <td><%= image_tag assignment.avatar.url(:thumb), :size => "30x30" %></td>
           <td><%= assignment.description %></td>
           <td><%= assignment.category_id %></td>
-          <td><a href="fresh_page_view/<%=assignment.id%>"> Show </a></td>  
+          <td><a href="/fresh_page_view/<%=assignment.id%>"> Show </a></td>  
         </tr>
       <% end %>
     </tbody>

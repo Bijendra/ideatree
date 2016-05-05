@@ -90,8 +90,21 @@ end
 
 def contributions
   @user = User.all
+  @assignment = Assignment.all
   @contribution_color = 1
   @ideas = Assignment.where(status: false).group_by(&:user_id)
+  @searched_by = "Search by category"
+
+end
+
+def search_by_category
+  category = params[:search_by_category]
+  p category
+  @searched_by = category
+  @user = User.all
+  @ideas = Assignment.where(category: category, status: false).group_by(&:user_id)
+  @contribution_color = 1
+  render "contributions"
 
 end
 

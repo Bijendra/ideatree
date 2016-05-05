@@ -26,6 +26,7 @@ Rails.application.routes.draw do
   get "/fresh_page_view/:id" => "comments#fresh_page_view", :as => "fresh_page_view"
   get "/liked_by/:id" => "users#liked_by" , :as => "liked_by"
   # devise_for :users
+  get "/search_by_category" => "users#search_by_category"
   resources :users
   devise_for :user, :path => '', :path_names => { :sign_in => "login", :sign_out => "logout", :sign_up => "register" }
 
