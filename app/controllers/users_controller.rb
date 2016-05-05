@@ -101,8 +101,8 @@ def search_by_category
   category = params[:search_by_category]
   p category
   @searched_by = category
-  @user = User.all
   @ideas = Assignment.where(category: category, status: false).group_by(&:user_id)
+  @user = User.all
   @contribution_color = 1
   render "contributions"
 
