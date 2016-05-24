@@ -207,6 +207,7 @@ p @sta.class
   def popular
 
   end
+
   def destroy
     @assignment.destroy
     respond_to do |format|
@@ -214,7 +215,12 @@ p @sta.class
       format.json { head :no_content }
     end
   end
-
+  
+  def follow
+    # idea_id, 
+    Follow.create(user_id: current_user.id, obj_type: Follow::IDEA, obj_id: params[:assignment_id])
+  end
+    
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_assignment

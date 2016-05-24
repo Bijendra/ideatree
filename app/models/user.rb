@@ -10,6 +10,8 @@ class User < ActiveRecord::Base
   has_many :assignments      
   has_many :comments
   has_many :likes
+  has_many :follows
+  
   acts_as_paranoid
 
   validates_format_of :email, :with => /\A[\w+\-.]+@shoretel.com/i, :message => "Email is invalid, only Shoretel Email is allowed"
