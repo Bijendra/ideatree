@@ -6,7 +6,7 @@ Devise.setup do |config|
   # confirmation, reset password and unlock tokens in the database.
   # Devise will use the `secret_key_base` on Rails 4+ applications as its `secret_key`
   # by default. You can change it below and use your own secret key.
-  # config.secret_key = '0b14bff6da155096d09ab99331e2617351fe51034cacf716f4a589ec9604144f108e44f1747882abf4567ccacc8ee7942d4fade47d74a09b0fe6d00f6e30debe'
+  config.secret_key = '0b14bff6da155096d09ab99331e2617351fe51034cacf716f4a589ec9604144f108e44f1747882abf4567ccacc8ee7942d4fade47d74a09b0fe6d00f6e30debe'
 
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,
@@ -121,7 +121,7 @@ Devise.setup do |config|
   # initial account confirmation) to be applied. Requires additional unconfirmed_email
   # db field (see migrations). Until confirmed, new email is stored in
   # unconfirmed_email column, and copied to email column on successful confirmation.
-  config.reconfirmable = true
+  config.reconfirmable = false
 
   # Defines which key will be used when confirming an account
   # config.confirmation_keys = [:email]
