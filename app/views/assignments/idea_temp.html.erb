@@ -62,12 +62,12 @@
             <li id="likepic-<%= post.id %>">
               <%= link_to image_tag(likepic), like_assignment_path(post,status: true),  class: 'vote', method: :put, remote: true %>
             </li>
-            <li class="unlike-count" id="unlike-<%= post.id %>">
+           <!--  <li class="unlike-count" id="unlike-<%= post.id %>">
               <%= unlike_count %>
-            </li>
-            <li id="unlikepic-<%= post.id %>">
-              <%= link_to image_tag(unlikepic), like_assignment_path(post,status: false), class: 'vote', method: :put , remote: true  %>
-            </li>
+            </li> -->
+            <!-- <li id="unlikepic-<%= post.id %>">
+              <%#= link_to image_tag(unlikepic), like_assignment_path(post,status: false), class: 'vote', method: :put , remote: true  %>
+            </li> -->
             <!-- <li><a href="#" class="icon fa-heart">28</a></li> -->
             <% if !@comments[post.id].blank?
                  comment_count = @comments[post.id].count
@@ -125,7 +125,19 @@
           <h2 style="back-ground-color: #ff0000;"><a href="?tag=popular">Popular posts</a></h2>
         </header>
       </article>
+      <div class="field" style="width:200px">
+      <form action="/assignments" method="get">               
+      <select id="list_by" name="List_by">
+      <option value=""><%= @listed_by %></option>
+      <option value="Technology">Technology</option>
+      <option value="Hospitality">Hospitality</option>
+      <option value="Sports">Sports</option>
+      <option value="Education">Education</option>
+      <option value="Likes"> Likes</option>
 
+      </select> 
+      <input name="commit" type="submit" value="Search" class="action" />
+      </form></div>
       <% @popular_view.each do |k,v| %>
           <% post = @popular_assignment.where(id: k).first %>
           <article class="mini-post">

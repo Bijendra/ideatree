@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-  
+  before_action :show, only: [:notification_data]
   # GET /users
   # GET /users.json
   def index
@@ -17,13 +17,66 @@ class UsersController < ApplicationController
     @unlike_count = @like_obj.where(status: false).group(:assignment_id).count
 
         #@liked_by = User.where(id: @like_obj.where(status: true).map(&:user_id)).map(&:name)
-
+    
     @liked_by = @like_obj.all.where(status: true).group_by(&:assignment_id)
     p "hiii"*20
     #p @liked_by["10"].first
     #p @unliked_by
     #@like_user_data = 
     # {1 => ["name1", "name2"]} like user
+    @all_comments = Comment.all
+  @users = User.all
+  @all_likes = Like.all
+  @assignment = Assignment.all
+  @comment_array = []
+  @like_array = []
+  @comment_notify_hash = {}
+  @like_notify_hash = {}
+  j= 0
+  k =0
+  @assignment_id_array = @assignment.where(user_id: 4).map(&:id)
+  for i in @assignment_id_array
+    @comment = @all_comments.where(assignment_id: i)
+    for k in @comment
+      @comment_array[j] = k
+      j= j+1
+    end
+  end
+  j = 0
+  for i in @assignment_id_array
+    @like = @all_likes.where(assignment_id: i)
+    for k in @like
+      @like_array[j] = k
+      j = j+1
+    end
+  end 
+  j=0
+  for i in @comment_array
+    @comment_notify_hash[i.updated_at] = "<a href='/users/#{i.user_id}'>#{@users.where(id: i.user_id).first.name}</a>" +
+    " commented on idea " + "<a href='/fresh_page_view/#{i.assignment_id}'>#{@assignment.where(id: i.assignment_id).first.title}</a>"
+    j = j+1;
+  end
+  p @comment_notify_hash
+  p "d"*100
+  for i in @like_array
+    @like_notify_hash[i.updated_at] = "<a href='/users/#{i.user_id}'>#{@users.where(id: i.user_id).first.name}</a>" +
+    " likes your idea " + "<a href='/fresh_page_view/#{i.assignment_id}'>#{@assignment.where(id: i.assignment_id).first.title}</a>"
+    j=j+1;
+  end
+
+   @notification_list = @like_notify_hash.merge(@comment_notify_hash).sort.reverse.to_h
+    
+    i = []
+    j = 0
+    @notify = 0
+    @notification_list.each do |k,v|
+        i[j] = k - @users.where(id: 4).first.current_sign_in_at
+          if i[j]>0
+            @notify = @notify+1
+          end
+        j = j+1
+    end
+
   end
 
   # GET /users/new
@@ -111,6 +164,61 @@ end
 def public_profile
   @user = User.where(id: params[:id]).first
 end
+
+def notify_me
+  current_user.update_attributes(notify_me: params[:checked])
+  render nothing: true
+end  
+
+def notification_data
+  #create hash of data with timestamps, follows, likes, comments
+  @all_comments = Comment.all
+  @users = User.all
+  @all_likes = Like.all
+  @assignment = Assignment.all
+  @comment_array = []
+  @like_array = []
+  @comment_notify_hash = {}
+  @like_notify_hash = {}
+  j= 0
+  k =0
+  @assignment_id_array = @assignment.where(user_id: 4).map(&:id)
+  for i in @assignment_id_array
+    @comment = @all_comments.where(assignment_id: i)
+    for k in @comment
+      @comment_array[j] = k
+      j= j+1
+    end
+  end
+  j = 0
+  for i in @assignment_id_array
+    @like = @all_likes.where(assignment_id: i)
+    for k in @like
+      @like_array[j] = k
+      j = j+1
+    end
+  end 
+  j=0
+  @comment_array.order(created: :desc)
+  for i in @comment_array
+    @comment_notify_hash[i.updated_at] = "<a href='/users/#{i.user_id}'>#{@users.where(id: i.user_id).first.name}</a>" +
+    " commented on idea " + "<a href='/fresh_page_view/#{i.assignment_id}'>#{@assignment.where(id: i.assignment_id).first.title}</a>"
+    j = j+1;
+  end
+  p @comment_notify_hash
+  p "d"*100
+  @like_array.order(created: :desc)
+  for i in @like_array
+    @like_notify_hash[i.updated_at] = "<a href='/users/#{i.user_id}'>#{@users.where(id: i.user_id).first.name}</a>" +
+    " likes your idea " + "<a href='/fresh_page_view/#{i.assignment_id}'>#{@assignment.where(id: i.assignment_id).first.title}</a>"
+    j=j+1;
+  end
+
+   @notification_list = @like_notify_hash.merge(@comment_notify_hash).sort.reverse.to_h
+
+
+end  
+
 
 private
   # Use callbacks to share common setup or constraints between actions.

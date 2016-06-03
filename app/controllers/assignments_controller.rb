@@ -4,12 +4,21 @@ class AssignmentsController < ApplicationController
   # GET /assignments
   # GET /assignments.json
   def index
-    if params[:tag].present? && params[:tag] == "popular"
+
+    if ((params[:tag].present? && params[:tag] == "popular") || (params[:List_by].present? && params[:List_by] == "Likes"))
       @popular_assignment1 = Assignment.where(status: false).all
       popular = {}
       s = []
-      for i in @popular_assignment1
-        popular[i.id] = (Comment.where(Assignment_id: i.id).all.count * 5) + Like.where(Assignment_id: i.id,status: true).count
+      if params[:List_by].present? 
+        for i in @popular_assignment1
+          popular[i.id] = Like.where(Assignment_id: i.id,status: true).count
+        end
+        @listed_by = "Likes"
+      else
+        for i in @popular_assignment1
+          popular[i.id] = (Comment.where(Assignment_id: i.id).all.count * 5) + Like.where(Assignment_id: i.id,status: true).count
+        end
+        @listed_by = "Popular List"
       end
       @popular_view1 = popular.sort_by{|_key, value| -value}.to_h
       p @popular_view1
@@ -20,7 +29,11 @@ class AssignmentsController < ApplicationController
         s << order_hsh[i].first
       end 
       @assignments = s
-    else  
+    elsif params[:List_by].present? && params[:List_by] != "Likes" 
+      @assignments = Assignment.where(status: false, category: params[:List_by]).order(created_at: :desc)
+      @listed_by = params[:List_by]    
+    else 
+      @listed_by = "List by"
       @assignments = Assignment.where(status: false).order(created_at: :desc) #change it to sort by published date. Show most recent on top
     end  
     @popular_assignment = Assignment.all
@@ -179,6 +192,9 @@ p @sta.class
     @com = Comment.new #hash
     query_value = params[:query] 
     p "2"*100
+    if @user.where(name: params[:query]).present?
+      @assignments = @popular_assignment.where(user_id: @user.where(name: params[:query]).first.id)
+    else
      @assignments = @popular_assignment.find_by_sql("SELECT * FROM assignments
       WHERE deleted_at IS NULL AND title LIKE '%#{query_value}%' OR description LIKE '%#{query_value}%' AND deleted_at IS NULL
       ORDER BY CASE
@@ -187,6 +203,7 @@ p @sta.class
         ELSE 3
         END, title
     LIMIT 0, 6; ")
+     end
      
      @query_value = query_value 
      p @assignments

@@ -1,19 +1,156 @@
-<head>
+<style>
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 24px;
+}
+
+.switch input {display:none;}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(16px);
+  -ms-transform: translateX(16px);
+  transform: translateX(16px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 24px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+a{
+  font-weight: bold;
+}
+
+
+
+</style>
+
 <!--<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css"> -->
 <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+
 <!--<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"> -->
+
+<script language="javascript">
+        
+$(document).ready(function(){
+  $('#cbSlide').on('change',function(){
+    checked_status = $('#cbSlide').is(':checked');
+  $.ajax({
+      url: "/notify_me",
+      data: {checked: checked_status},
+      ContentType: 'application/json'
+    });
+});
+});
+
+
+$(document).ready(function(){
+    $("#cbSlide").click(function(){
+        $("#notificationLink").toggle();
+        if ($('#cbSlide').is(':checked') == false) {
+          $("#notificationLink").hide();
+        } else
+        {
+          $("#notificationLink").show();
+        }
+      });
+    });
+
+
 </script>
-</head>
+
+<script>
+$(document).ready(function(){
+    $("#notification_list_show_hide").hide();
+    $("#IdeasList").show();
+    $("#notificationLink").show();
+});
+
+$(document).ready(function(){
+    if ($('#cbSlide').is(':checked') == false) {
+      $("#notificationLink").hide();
+    } else
+        {
+          $("#notificationLink").show();
+        }
+});
 
 
+
+
+$(document).ready(function(){
+    $("#notificationLink").click(function(){
+        $("#notification_list_show_hide").toggle();
+        $("#IdeasList").toggle();
+
+    });
+});
+</script>
 
 
 <div id="main" >
-
+<div id="NoNotification">
 <%#= render :partial => "shared/home_nav_bar" %>
-<p style="font-size:25px">
+<div style="font-size:25px">
 <b><a style="color: rgb(179, 36, 0);" href="/users/4/edit">Edit Profile</a></b>
- </p>
+ </div>
+ 
+<% if @user.notify_me == true 
+      checked= "checked"
+    else
+      checked = ""
+    end %>
+
+ <div style="font-size:20px">
+<b style="top:5px">Notify me</b>
+ <label class="switch" style="top:23px; margin-left:10px"  >
+  <input type="checkbox" <%= checked %> id="cbSlide">
+  <div class="slider round"></div>
+</label>  </div>
+</div>
+
+  <a style="font-size:150%; font-weight: normal" id="notificationLink" href="#" >Notifications <span style="color:red"> (<%= @notify %>)</span></a> 
+
+<div id="IdeasList">
 <% ideas = @user.assignments.where(status: false) %>
 <% if ideas.present? %>
   <h2>Ideas submitted by you</h2>
@@ -61,7 +198,7 @@
           <td id="liked_by_<%=assignment.id%>"> <%= link_to image_tag(likepic), liked_by_path(id: assignment.id), :remote => true, :method => :get %>
           </td>
 
-          <td><%= unlike_count %></td>
+          <!-- <td><%= unlike_count %></td> -->
          <!--  <td><%#= link_to image_tag(unlikepic), like_assignment_path(assignment,status: false), class: 'vote', method: :put , remote: true  %>
           </td> -->
         </tr>
@@ -95,6 +232,12 @@
 <%#= link_to 'Back', users_path %>
 
 </div>
-
+</div>
   
-</script>
+<div id="notification_list_show_hide" style="top:300px; left:300px; position:absolute; c" >
+
+<%#= raise @notification_list.inspect %>
+<% @notification_list.each do |k,v| %>
+  <%= raw v %>  <p style="color:#6060ff;margin:0px;font-size: 0.8em;font-style:italic;"> <%= time_ago_in_words(k) %> ago </p> <br>
+<% end %>
+</div>
