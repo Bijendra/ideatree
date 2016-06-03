@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   before_action :authenticate_user!
-  http_basic_authenticate_with name: "shore@51$", password: "razor+21$"
+  # http_basic_authenticate_with name: "shore@51$", password: "razor+21$"
 
 # def authenticate_user!
 #  if user_signed_in?

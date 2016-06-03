@@ -1,4 +1,7 @@
-<h2>Change your password</h2>
+<div id="full-background">
+  <div id="main">   
+    <div class="forgot-password">
+<h2>Change password</h2>
 
 <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
   <%= f.error_notification %>
@@ -7,13 +10,60 @@
   <%= f.full_error :reset_password_token %>
 
   <div class="form-inputs">
-    <%= f.input :password, label: "New password", required: true, autofocus: true, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length) %>
-    <%= f.input :password_confirmation, label: "Confirm your new password", required: true %>
+    <%= f.input :password, label: "New password", required: true, autofocus: true, placeholder: "password", hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length), label: false %>
+    <%= f.input :password_confirmation, label: "Confirm your new password", placeholder: "password", required: true, label: false %>
   </div>
 
   <div class="form-actions">
     <%= f.button :submit, "Change my password" %>
   </div>
 <% end %>
+<div class="etc-login-form">
+        <p>already have an account? <%=  link_to "Log in", new_session_path(resource_name), :class => 'btn btn-primary'%> </p>
+        <p>new user? <%= link_to "Create new account", new_user_registration_path, :class => 'btn btn-primary'%></p>
+      </div>
+</div>
+</div>
+</div>
 
-<%= render "devise/shared/links" %>
+
+
+<style type="text/css">
+  .etc-login-form {
+    color: #919191;
+    padding: 10px 20px;
+  }
+  .etc-login-form p {
+    margin-bottom: 5px;
+  }
+  #full-background{
+    background-image: url('/assets/idea-discussion.jpeg'); 
+    /*position: fixed;*/
+    top:0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+   .forgot-password {
+      width: 400px;
+      margin: 0 auto;
+      max-width: 400px;
+      padding: 19px 29px 29px;
+      margin: 90px auto 20px;
+      background-color: #fff;
+      border: 1px solid #e5e5e5;
+      -webkit-border-radius: 5px;
+         -moz-border-radius: 5px;
+              border-radius: 5px;
+      -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+         -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+              box-shadow: 0 1px 2px rgba(0,0,0,.05);
+        }
+
+    .form-inputs .form-group input {
+      margin-bottom: 10px;
+    }
+    .forgot_submit_button {
+      width: 150px;
+    }
+</style>

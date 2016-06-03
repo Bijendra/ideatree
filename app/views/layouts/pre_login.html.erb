@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Idea Tree Prelogin</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="/assets/css/main.css" />
+    <link rel="shortcut icon" href="/assets/icon.ico" />
+    <%#= stylesheet_link_tag    'application', media: 'all' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body >
+    <div class="container-fluid" >
+     
+      <div id="wrapper">
+       <div id="prelogin-img-container" class="hidden-phone"></div>
+  <div id="prelogin-container" <% if(!((defined? @no_margin) && @no_margin)) %>class="main"<% end %> style="<%= ((defined? @isMobile) && @isMobile) ? 'height:100%; width:100%;' : '' %>">
+    <%= yield %>
+  </div>  
+      </div>
+    </div>
+
+  </body>
+</html>
+
+<script src="/assets/js/jquery.min.js"></script>
+<script src="/assets/js/skel.min.js"></script>
+<script src="/assets/js/util.js"></script>
+<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+<script src="/assets/js/main.js"></script>

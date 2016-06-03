@@ -5,61 +5,34 @@
   </script>
 </head>
 
-
-
-
 <div id="main" >
-<% ideas = @user.assignments.where(status: false) %>
-<% if ideas.present? %>
-  <h2>Idea submitted by <%= @user.name ||=  @user.get_display_name %></h2>
-  <table>
-    <thead>
-      <tr>
-        <th></th>
-        <th>Description</th>
-        <th>Category</th>
-        <th>View</th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <% @user.assignments.where(status: false).each do |assignment| %>
+  <% ideas = @user.assignments.where(status: false) %>
+  <% if ideas.present? %>
+    <h2>Ideas by <%= @user.name ||=  @user.get_display_name %></h2>
+    <table>
+      <thead>
         <tr>
-          <td><%= image_tag assignment.avatar.url(:thumb), :size => "30x30" %></td>
-          <td><%= assignment.description %></td>
-          <td><%= assignment.category_id %></td>
-          <td><a href="/fresh_page_view/<%=assignment.id%>"> Show </a></td>  
+          <th></th>
+          <th>Description</th>
+          <th>Category</th>
+          <th>View</th>
         </tr>
-      <% end %>
-    </tbody>
-  </table>
-<% else %>
-  <h2>No Ideas Submitted By <%= @user.get_display_name %></h2>
-  <div style="background-image: url('/assets/skull.jpg');"></div>
-<% end %>  
+      </thead>
 
-  
-
-  <!-- <div >
-
-    <a href="#myPopupDialog" data-rel="popup" data-position-to="window" data-transition="fade" class="ui-btn ui-corner-all ui-shadow ui-btn-inline first34" id="<%#= 10  %>">Like</a>
-
-    <div data-role="popup" id="myPopupDialog">
-      <div data-role="header">
-        <h1>Liked By</h1>
-      </div>
-      <div class="check123"><div data-role="main" class="ui-content">
-  
-  <a href="#" data-rel="back">Go Back</a>
+      <tbody>
+        <% @user.assignments.where(status: false).each do |assignment| %>
+          <tr>
+            <td><%= image_tag assignment.avatar.url(:thumb), :size => "30x30" %></td>
+            <td><%= assignment.description %></td>
+            <td><%= assignment.category_id %></td>
+            <td><a href="/fresh_page_view/<%=assignment.id%>"> Show </a></td>  
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <h2>No Ideas Submitted By <%= @user.get_display_name %></h2>
+    <div style="background-image: url('/assets/skull.jpg');"></div>
+  <% end %>  
 </div>
-</div>
-    </div>  
-  </div>
- -->
-
-<%#= link_to 'Back', users_path %>
-
-</div>
-
   
-</script>

@@ -1,0 +1,5 @@
+<% if current_user.present? %>
+  <%= render :partial => "home_page" %>
+<% else %>
+  <%= render :partial => "pre_login" %>
+<% end %>

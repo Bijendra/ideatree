@@ -1,9 +1,11 @@
 
 Rails.application.routes.draw do
+  resources :follows
   ActiveAdmin.routes(self)
   get 'homes/index'
   
   resources :assignments do
+    post "follow", to:"users#follow"
     member do
         put "like", to: "assignments#like"
         put "unlike", to: "assignments#unlike"
@@ -28,9 +30,12 @@ Rails.application.routes.draw do
   get "/notify_me" => "users#notify_me"
   # devise_for :users
   get "/search_by_category" => "users#search_by_category"
-  resources :users
+  
+  resources :users do
+    post "follow", to:"users#follow"
+  end  
   devise_for :user, :path => '', :path_names => { :sign_in => "login", :sign_out => "logout", :sign_up => "register" }
-
+  
 
 #custom routes defined
   # devise_scope :user do

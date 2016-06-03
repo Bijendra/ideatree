@@ -1,0 +1,17 @@
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Welcome to Ideatree, <%= @user.get_display_name %></h1>
+    <p>
+      You have successfully signed up to Ideatree,
+      your username is: <%= @user.login %>.<br>
+    </p>
+    <p>
+      To login to the site, just follow this link: <%= @url %>.
+    </p>
+    <p>Share and contribute with your ideas to make it better.</p>
+  </body>
+</html>
+

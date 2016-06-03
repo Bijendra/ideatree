@@ -95,6 +95,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
+        UserMailer.welcome_email(@user).deliver_later
         format.html { redirect_to @user, notice: 'User was successfully created.' }
         format.json { render :show, status: :created, location: @user }
       else
@@ -165,6 +166,7 @@ def public_profile
   @user = User.where(id: params[:id]).first
 end
 
+<<<<<<< HEAD
 def notify_me
   current_user.update_attributes(notify_me: params[:checked])
   render nothing: true
@@ -219,6 +221,10 @@ def notification_data
 
 end  
 
+
+def follow
+  Follow.create(user_id: current_user.id, obj_type: Follow::USER, obj_id: params[:user_id])
+end
 
 private
   # Use callbacks to share common setup or constraints between actions.
